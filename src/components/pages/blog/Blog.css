@@ -1,0 +1,154 @@
+.blog_header {
+    border-bottom: 1px solid #ECEFF1;
+}
+
+.head_search input {
+    border: none;
+    background-color: #ECEFF1;
+    padding: 8px 5px 8px 40px;
+    font-size: 18px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.head_search input:focus {
+    outline: none;
+}
+
+.head_search {
+    position: relative;
+    max-width: 600px;
+}
+
+.head_search .icon {
+    position: absolute;
+    left: 10px;
+    top: 13px;
+    font-size: 20px;
+}
+
+.head_logo {
+    height: 60px;
+}
+
+.head_logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.head_addpost button {
+    border-radius: 20px;
+    padding: 6px 15px;
+    font-weight: 600;
+    color: #F57C00;
+    background-color: white;
+    border: 2px solid #F57C00;
+}
+
+.head_addpost div {
+    background-color: #FFCD29;
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.head_addpost img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+}
+
+
+
+/* ************** blog_hero *********************/
+.blog_hero_top {
+    padding: 30px 0;
+}
+
+.blog_hero_top h4 {
+    color: #00838F;
+}
+
+.blog_hero_bottum {
+    border-radius: 6px;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .3), 0 2px 6px 2px rgba(60, 64, 67, .15);
+}
+
+.blog_hero_img {
+    width: 190px;
+    height: 130px;
+}
+
+.blog_hero_img img {
+    width: 100%;
+    height: 100%;
+}
+
+.blog_hero_crud .profile {
+    width: 50px;
+    height: 50px;
+    background-color: #FFCD29;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.blog_hero_crud .profile img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+}
+
+.blog_hero_crud .delete,
+.blog_hero_crud .share ,
+.blog_hero_crud .edit {
+    font-size: 30px;
+    cursor: pointer;
+}
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #0a0a0a;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
+@media (max-width:767px) {
+    .blog_hero_img {
+        width: 160px;
+        height: 120px;
+    }
+    .blog_hero_text h3 {
+        font-size: 20px;
+    }
+
+    .blog_hero_text h4 {
+        font-size: 18px;
+    }
+}
+@media (max-width:400px) {
+    .blog_hero_bottum {
+        padding: 10px !important;
+    }
+
+    .blog_hero_text h3 {
+        font-size: 20px;
+    }
+
+    .blog_hero_text h4 {
+        font-size: 18px;
+    }
+}

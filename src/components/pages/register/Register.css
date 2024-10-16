@@ -1,0 +1,83 @@
+.main_register {
+    background-color: #EBEFFF;
+    height: 100vh;
+}
+
+.register_left img {
+    width: 100%;
+    height: 100%;
+}
+
+.register_right {
+    width: 400px;
+    margin-top: 100px;
+}
+
+.register_right_inner p {
+    font-size: 20px;
+    padding: 7px 0 5px 0;
+}
+
+.register_right_inner input {
+    width: 100%;
+    border: 1px solid #656ED3;
+    background-color: transparent;
+    font-size: 20px;
+    padding: 5px 20px;
+    border-radius: 25px;
+}
+
+.register_right_inner input:focus {
+    outline: none;
+}
+
+.register_right_inner .password-input-container {
+    position: relative;
+}
+
+.register_right_inner .password-icon {
+    position: absolute;
+    top: 45%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+}
+
+.register_right_inner .password-icon:hover {
+    color: #000;
+}
+
+.register_right .register_btn {
+    background-color: #656ED3;
+    width: 100%;
+    border-radius: 25px;
+}
+.loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
+
+@media (max-width: 1199px) {
+    .register_right {
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 450px) {
+    .main_register {
+        height: 100%;
+        background-color: white;
+    }
+
+    .register_right {
+        width: 100%;
+    }
+    .register_right_inner .register_btn {
+        margin-top: 20px !important;
+    }
+}

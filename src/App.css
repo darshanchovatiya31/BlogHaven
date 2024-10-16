@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: Europa;
+    src: url("./components/Fonts//f_Europa-Bold/Europa-Bold.ttf");
+    src: url("./components/Fonts//f_Europa-Bold/Europa-Bold.woff");
+    src: url("./components/Fonts//f_Europa-Bold/Europa-Bold.woff2");
+}
+
+@font-face {
+    font-family: Europa_reg;
+    src: url("./components/Fonts/f-Europa-reg/Europa-Regular.ttf");
+    src: url("./components/Fonts/f-Europa-reg/Europa-Regular.woff");
+    src: url("./components/Fonts/f-Europa-reg/Europa-Regular.woff2");
+}
+
+@font-face {
+    font-family: SegoeUI;
+    src: url("./components/Fonts/Segoe_UI/SegoeUIThis.ttf");
+    src: url("./components/Fonts/Segoe_UI/SegoeUIThis.woff");
+    src: url("./components/Fonts/Segoe_UI/SegoeUIThis.woff2");
+}
+
+.europa_bold {
+    font-family: Europa;
+}
+
+.europa_reg {
+    font-family: Europa_reg;
+}
+
+.segoeui {
+    font-family: SegoeUI;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #A0A0A0;
+    border-radius: 5px;
+}
