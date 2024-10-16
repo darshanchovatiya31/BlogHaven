@@ -107,20 +107,37 @@
 }
 
 
+.advertisement img {
+    width: 1000px;
+    height: 600px;
+    margin: 0 auto;
+    outline: none !important;
+    border: none !important;
+}
 
-.category{
+.advertisement img:focus,
+.advertisement img:active {
+    outline: none !important;
+    border: none !important;
+}
+
+
+
+.category {
     margin-bottom: 50px;
 }
-.category_left img{
+
+.category_left img {
     width: 100%;
     height: 100%;
 }
 
-.notfound{
+.notfound {
     color: skyblue;
     font-size: 28px;
 }
-.activecategory{
+
+.activecategory {
     border-bottom: 2px solid skyblue;
 }
 
@@ -134,12 +151,19 @@
     .hero h1 {
         font-size: 53px;
     }
-    .category_name p{
+
+    .category_name p {
         font-size: 18px !important;
     }
-    .category_side_img{
+
+    .category_side_img {
         height: 100px;
         object-fit: cover;
+    }
+
+    .advertisement img {
+        width: 900px;
+        height: 600px;
     }
 }
 
@@ -155,15 +179,22 @@
     .destinations {
         margin: 100px 0;
     }
-    .category_side_img{
+
+    .category_side_img {
         height: 180px;
     }
+    
+.advertisement img{
+    width: 700px;
+    height: 500px;
+}
 }
 
 @media (max-width:767px) {
     .hero h1 {
         font-size: 34px;
     }
+
     .travel h2 {
         width: 100%;
     }
@@ -175,9 +206,15 @@
     .destinations {
         margin: 70px 0;
     }
-    .category_side_img{
+
+    .category_side_img {
         height: 130px;
     }
+    
+.advertisement img{
+    width: 500px;
+    height: 300px;
+}
 }
 
 @media (max-width:576px) {
@@ -188,7 +225,8 @@
     .destinations {
         margin: 50px 0;
     }
-    .category_side_img{
+
+    .category_side_img {
         height: 200px;
         width: 360px;
         object-position: top;
@@ -196,8 +234,13 @@
         margin: 0 auto 8px auto;
         border-radius: 10px;
     }
-    .category_right_inner{
+
+    .category_right_inner {
         text-align: center;
+    }
+    .advertisement img{
+        width: 100%;
+        height: 100%;
     }
 }
 
@@ -205,13 +248,16 @@
     .hero p {
         font-size: 25px;
     }
-    .category_right h4{
+
+    .category_right h4 {
         font-size: 20px !important;
     }
-    .category_left p{
+
+    .category_left p {
         margin: 6px 0 !important;
     }
-    .category_side_img{
+
+    .category_side_img {
         width: 100%;
     }
 }

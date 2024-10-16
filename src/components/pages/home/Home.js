@@ -53,6 +53,15 @@ const settings = {
   ],
 };
 
+var adds = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+};
+
 const Home = () => {
   const [post, setPost] = useState([]);
   const [showAll, setShowAll] = useState(false);
@@ -130,10 +139,10 @@ const Home = () => {
                   Create Smart, Live Simply
                 </p>
                 <Link to={"/blog"}>
-                <button className="btn bg-white border-0 rounded-1 europa_bold px-lg-5 px-4 py-2">
-                  {/* Start Planning your trip */}
-                  Start Creating your Blog
-                </button>
+                  <button className="btn bg-white border-0 rounded-1 europa_bold px-lg-5 px-4 py-2">
+                    {/* Start Planning your trip */}
+                    Start Creating your Blog
+                  </button>
                 </Link>
               </div>
             </div>
@@ -177,11 +186,30 @@ const Home = () => {
                 seamless data.
               </p>
               <Link to={"/blog"}>
-              <button className="europa_bold plannig_btn">
-                Start creating your blog
-              </button>
+                <button className="europa_bold plannig_btn">
+                  Start creating your blog
+                </button>
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="container mt-5">
+          <div className="advertisement">
+          <div><button className="ms-auto d-flex mb-3">Advertisement</button></div>
+            <Slider {...adds}>
+              <div>
+                <img src="https://5.imimg.com/data5/ANDROID/Default/2024/7/436513789/TX/WT/JX/35477174/product-jpeg-500x500.jpg" alt="" />
+              </div>
+              <div>
+                <img src="https://newspaperads.ads2publish.com/wp-content/uploads/2018/07/grand-rakhi-mela-lifestyle-and-fashion-exhibition-ad-mirror-ahmedabad-27-07-2018-592x379.png" alt="" />
+              </div>
+              <div>
+                <img src="https://graphicsfamily.com/wp-content/uploads/edd/2022/11/Professional-Advertising-Poster-Design-for-Tea-Product-scaled.jpg" alt="" />
+              </div>
+            </Slider>
           </div>
         </div>
       </section>
