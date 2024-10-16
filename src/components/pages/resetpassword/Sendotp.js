@@ -3,6 +3,7 @@ import "../login/Login.css";
 import computer from "../../images/login.png";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { BaseUrl } from "../../Service/Url";
 
 const Sendotp = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const Sendotp = () => {
   const [userData, setUserData] = useState({ email: "" });
 
   const handleClick = async () => {
-    const response = await fetch("http://localhost:5000/user/send-otp", {
+    const response = await fetch(`${BaseUrl}/user/send-otp`, {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {

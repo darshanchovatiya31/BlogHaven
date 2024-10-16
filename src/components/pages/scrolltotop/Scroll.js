@@ -11,7 +11,6 @@ export const Scroll = ({ children }) => {
         });
     }, [pathname, Scroll])
 
-
     return (
         <>
             {children}

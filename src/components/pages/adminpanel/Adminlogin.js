@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BaseUrl } from "../../Service/Url";
 
 const Adminlogin = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -20,7 +21,7 @@ const Adminlogin = () => {
     };
   
     const handleClick = () => {
-      fetch("http://localhost:5000/admin/login", {
+      fetch(`${BaseUrl}/admin/login`, {
         method: "POST",
         body: JSON.stringify(userData),
         headers: {
@@ -37,7 +38,7 @@ const Adminlogin = () => {
               autoClose: 1000,
             });
             setTimeout(() => {
-              navigate("/adminpanal"); // Redirect to home after 2 seconds
+              navigate("/adminpanal");
             }, 2000);
           } else {
             toast.error(data.message || "Login failed!");

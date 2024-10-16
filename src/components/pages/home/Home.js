@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "../home/Home.css";
 import Header from "../../header/Header";
-import { Categary, Categarydata, Destinations } from "../../data/Data";
+import { Categary, Destinations } from "../../data/Data";
 import Blogcard from "../../card/Blogcard";
 import Footer from "../../footer/Footer";
-import category from "../../images/category1.png";
 import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { BaseUrl } from "../../Service/Url";
 
 const settings = {
   dots: false,
@@ -60,7 +60,7 @@ const Home = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("http://localhost:5000/user/homeblogs", {
+        const response = await fetch(`${BaseUrl}/user/homeblogs`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -87,7 +87,7 @@ const Home = () => {
   // Function to fetch blogs based on the selected category
   const fetchCategoryBlogs = async (category) => {
     try {
-      const response = await fetch("http://localhost:5000/user/category/blog");
+      const response = await fetch(`${BaseUrl}/user/category/blog`);
       const data = await response.json();
 
       if (response.ok) {

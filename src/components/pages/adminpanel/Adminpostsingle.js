@@ -4,16 +4,16 @@ import { CiShare2 } from "react-icons/ci";
 import "ckeditor5/ckeditor5.css";
 import "ckeditor5-premium-features/ckeditor5-premium-features.css";
 import { useParams } from "react-router-dom";
+import { BaseUrl } from "../../Service/Url";
 
 const Adminpostsingle = () => {
   const [blog,setBlog] = useState({})
-
   const { blogId } = useParams()
   
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/admin/view/blogs/post/${blogId}`, {
+        const response = await fetch(`${BaseUrl}/admin/view/blogs/post/${blogId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

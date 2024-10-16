@@ -4,6 +4,7 @@ import computer from "../../images/login.png";
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { BaseUrl } from '../../Service/Url';
 
 const Updatepassword = () => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Updatepassword = () => {
 
     const handleClick = async () => {
         // Update password API call
-        const response = await fetch(`http://localhost:5000/user/update-password/${userId}`, {
+        const response = await fetch(`${BaseUrl}/user/update-password/${userId}`, {
             method: 'PUT',
             body: JSON.stringify(userData),
             headers: {
@@ -29,7 +30,7 @@ const Updatepassword = () => {
             });
 
             // Call the delete OTP API after successful password update
-            const otpResponse = await fetch(`http://localhost:5000/user/delete-otp/${userId}`, {
+            const otpResponse = await fetch(`${BaseUrl}/user/delete-otp/${userId}`, {
                 method: 'DELETE', // Assuming DELETE is the method to remove the OTP
                 headers: {
                     'Content-Type': 'application/json'

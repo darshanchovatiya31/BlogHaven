@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import AdminHeader from "./AdminHeader";
 import "../adminpanel/Adminpanel.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { BiShow } from "react-icons/bi";
+import { BaseUrl } from "../../Service/Url";
 
 const Adminposts = () => {
   const [blogs, setBlogs] = useState([]);
@@ -12,9 +13,6 @@ const Adminposts = () => {
   const [loading, setLoading] = useState(false);
   const [loadingId, setLoadingId] = useState(null);
   const [isSearching, setIsSearching] = useState(false); // State to manage search loading
-  const [profiledata, setprofiledata] = useState({});
-
-  const Navigate = useNavigate();
 
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("admintoken");
@@ -24,7 +22,7 @@ const Adminposts = () => {
     const fetchBlogs = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/admin/blog/allblog",
+          `${BaseUrl}/admin/blog/allblog`,
           {
             method: "GET",
             headers: {
@@ -52,7 +50,7 @@ const Adminposts = () => {
     setIsSearching(true); // Set searching to true
     try {
       const response = await fetch(
-        `http://localhost:5000/admin/category/searching?title=${query}&userId=${userId}`,
+        `${BaseUrl}/admin/category/searching?title=${query}&userId=${userId}`,
         {
           method: "GET",
           headers: {
@@ -92,7 +90,7 @@ const Adminposts = () => {
   const fetchAllBlogs = async () => {
     setIsSearching(true); // Set searching to true
     try {
-      const response = await fetch("http://localhost:5000/user/homeblogs", {
+      const response = await fetch(`${BaseUrl}/user/homeblogs`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -121,7 +119,7 @@ const Adminposts = () => {
     setLoadingId(blogId);
     try {
       const response = await fetch(
-        `http://localhost:5000/admin/postdelete/${blogId}`,
+        `${BaseUrl}/admin/postdelete/${blogId}`,
         {
           method: "DELETE",
           headers: {
@@ -141,34 +139,6 @@ const Adminposts = () => {
       setLoadingId(null);
     }
   };
-
-  // useEffect(() => {
-  //   const fetchBlogs = async () => {
-  //     try {
-  //       const response = await fetch(`http://localhost:5000/user/profiledata`, {
-  //         method: "GET",
-  //         headers: {
-  //           authorization: `Bearer ${localStorage.getItem("admintoken")}`,
-  //         },
-  //       });
-
-  //       if (!response.ok) {
-  //         throw new Error(`Error: ${response.statusText}`);
-  //       }
-  //       const data = await response.json();
-
-  //       if (data && data.data) {
-  //         setprofiledata(data.data);
-  //       } else {
-  //         console.error("Unexpected API response structure");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching blogs:", error);
-  //     }
-  //   };
-
-  //   fetchBlogs();
-  // }, [token]);
 
   return (
     <>

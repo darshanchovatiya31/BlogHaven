@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BaseUrl } from "../../Service/Url";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,7 +31,7 @@ const Register = () => {
     formData.append("Confirm_Password", userData.Confirm_Password);
     formData.append("profile", profileImage); // Append the file to the FormData
 
-    fetch("http://localhost:5000/user/user-signup", {
+    fetch(`${BaseUrl}/user/user-signup`, {
       method: "POST",
       body: formData, // Use formData instead of JSON
     })

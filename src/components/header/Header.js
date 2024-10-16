@@ -2,8 +2,7 @@ import React from "react";
 import "../header/Header.css";
 import logo from "../images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { Categary, Navbar } from "../data/Data.js";
-import { IoIosSearch } from "react-icons/io";
+import { Categary } from "../data/Data.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -81,7 +80,6 @@ const Header = ({ bgcolor, btnwhite }) => {
                   {Categary.map((item, index) => (
                     <li className="nav-item" key={index}>
                       <Link
-                        // to={"/login"}
                         className="nav-link text-white Europa_Bold menu mb-2 mb-md-0"
                         aria-current="page"
                       >
@@ -91,7 +89,6 @@ const Header = ({ bgcolor, btnwhite }) => {
                   ))}
                 </ul>
                 <div class="d-flex align-items-center gap-xl-4 gap-2 create_blog_main_btn">
-                  {/* <IoIosSearch className="text-white fs-4" /> */}
                   <>
                     <button
                       className="btn  SegoeUI blog-btn fs-6 rounded-0"

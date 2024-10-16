@@ -3,11 +3,11 @@ import "../card/Blogcard.css";
 import { Link, useNavigate } from 'react-router-dom';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { CiShare2 } from "react-icons/ci";
+import { BaseUrl } from '../Service/Url';
 
 const Blogcard = ({ Blogs }) => {
   const [liked, setLiked] = useState(false);  // To store like status
   const [count, setCount] = useState(0);  // To store like count
-  const [showFullDescription, setShowFullDescription] = useState(false);  // To toggle description
   const Navigate = useNavigate();
 
   // Function to handle the like/unlike action
@@ -20,7 +20,7 @@ const Blogcard = ({ Blogs }) => {
     }
 
     // Define the like/unlike API endpoint with blogId and userId
-    const likeUrl = `http://localhost:5000/user/blog/like/unlike/${blogId}/${userId}`;
+    const likeUrl = `${BaseUrl}/user/blog/like/unlike/${blogId}/${userId}`;
 
     try {
       // Perform the API call
@@ -56,7 +56,7 @@ const Blogcard = ({ Blogs }) => {
   // Function to fetch the current like count
   const LikeCount = async (blogId) => {
     try {
-      const res = await fetch(`http://localhost:5000/user/blog/likeCounts/${blogId}`);
+      const res = await fetch(`${BaseUrl}/user/blog/likeCounts/${blogId}`);
       const data = await res.json();
       setCount(data.data); 
     } catch (error) {
@@ -80,10 +80,6 @@ const Blogcard = ({ Blogs }) => {
     checkUserLikedStatus();  // Check if the user has already liked the Blogs
   }, [Blogs._id]);
 
-  // Function to toggle full description visibility
-  const toggleDescription = () => {
-    setShowFullDescription(!showFullDescription);
-  };
   return (
     <>
       <div className="card border-0 mb-5">

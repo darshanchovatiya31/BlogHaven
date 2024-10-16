@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BaseUrl } from "../../Service/Url";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,7 +21,7 @@ const Login = () => {
   };
 
   const handleClick = () => {
-    fetch("http://localhost:5000/user/user-login", {
+    fetch(`${BaseUrl}/user/user-login`, {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {
@@ -128,7 +129,7 @@ const Login = () => {
           </div>
         </div>
       </section>
-      <ToastContainer /> {/* Toastify container */}
+      <ToastContainer />
     </>
   );
 };

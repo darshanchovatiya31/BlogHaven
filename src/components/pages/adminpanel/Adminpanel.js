@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import "../adminpanel/Adminpanel.css";
-
 import { FaUserAlt } from "react-icons/fa";
 import ReactApexChart from "react-apexcharts";
 import AdminHeader from "./AdminHeader";
 import { BsFillPostcardFill } from "react-icons/bs";
+import { BaseUrl } from "../../Service/Url";
 
 class Adminpanel extends Component {
 
   async componentDidMount() {
     try {
-      const response = await fetch("http://localhost:5000/admin/chat/dashboard", {
+      const response = await fetch(`${BaseUrl}/admin/chat/dashboard`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ class Adminpanel extends Component {
       }
 
 
-      const dashboardResponse = await fetch("http://localhost:5000/admin/dashboard", {
+      const dashboardResponse = await fetch(`${BaseUrl}/admin/dashboard`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

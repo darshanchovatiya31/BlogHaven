@@ -7,6 +7,7 @@ import { MdDelete } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BaseUrl } from "../../Service/Url";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -26,7 +27,7 @@ const Blog = () => {
     const fetchBlogs = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/user/userpost/${userId}`,
+          `${BaseUrl}/user/userpost/${userId}`,
           {
             method: "GET",
             headers: {
@@ -66,7 +67,7 @@ const Blog = () => {
     setIsSearching(true); // Set searching to true
     try {
       const response = await fetch(
-        `http://localhost:5000/user/category/search?title=${query}&userId=${userId}`,
+        `${BaseUrl}/user/category/search?title=${query}&userId=${userId}`,
         {
           method: "GET",
           headers: {
@@ -107,7 +108,7 @@ const Blog = () => {
     setIsSearching(true); // Set searching to true
     try {
       const response = await fetch(
-        `http://localhost:5000/user/userpost/${userId}`,
+        `${BaseUrl}/user/userpost/${userId}`,
         {
           method: "GET",
           headers: {
@@ -137,7 +138,7 @@ const Blog = () => {
     setLoadingId(blogId);
     try {
       const response = await fetch(
-        `http://localhost:5000/user/postdelete/${blogId}`,
+        `${BaseUrl}/user/postdelete/${blogId}`,
         {
           method: "DELETE",
           headers: {
@@ -161,7 +162,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/user/profiledata`, {
+        const response = await fetch(`${BaseUrl}/user/profiledata`, {
           method: "GET",
           headers: {
             authorization: `Bearer ${token}`,

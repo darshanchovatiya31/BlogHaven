@@ -7,6 +7,7 @@ import "ckeditor5/ckeditor5.css";
 import "ckeditor5-premium-features/ckeditor5-premium-features.css";
 import Blogcard from "../../card/Blogcard";
 import { useParams } from "react-router-dom";
+import { BaseUrl } from "../../Service/Url";
 
 const Blogsingle = () => {
   const [post, setPost] = useState([]);
@@ -16,7 +17,7 @@ const Blogsingle = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("http://localhost:5000/user/homeblogs", {
+        const response = await fetch(`${BaseUrl}/user/homeblogs`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -41,7 +42,7 @@ const Blogsingle = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/user/view/blogs/post/${blogId}`, {
+        const response = await fetch(`${BaseUrl}/user/view/blogs/post/${blogId}`, {
           method: "GET",
           headers: {
             authorization:`Bearer ${localStorage.getItem("token")}`

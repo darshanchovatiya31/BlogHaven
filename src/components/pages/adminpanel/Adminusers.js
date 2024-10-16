@@ -5,6 +5,7 @@ import { MdDelete } from "react-icons/md";
 import { FaDotCircle, FaSearch } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BaseUrl } from "../../Service/Url";
 
 const Adminusers = () => {
   const [users, setUsers] = useState([]);
@@ -16,10 +17,10 @@ const Adminusers = () => {
 
   const fetchUsers = async (statusFilter = "all") => {
     try {
-      let url = "http://localhost:5000/admin/alluser"; // default fetch URL for all users
+      let url = `${BaseUrl}/admin/alluser`; // default fetch URL for all users
 
       if (statusFilter !== "all") {
-        url = `http://localhost:5000/admin/status/filter?status=${statusFilter}`;
+        url = `${BaseUrl}/admin/status/filter?status=${statusFilter}`;
       }
 
       const response = await fetch(url, {
@@ -46,7 +47,7 @@ const Adminusers = () => {
   };
 
   useEffect(() => {
-    fetchUsers(); // Fetch all users by default when component mounts
+    fetchUsers();
   }, []);
 
   const handleFilterChange = (status) => {
@@ -62,7 +63,7 @@ const Adminusers = () => {
       setIsSearching(true);
       try {
         const response = await fetch(
-          `http://localhost:5000/admin/user/searching?username=${query}`
+          `${BaseUrl}/admin/user/searching?username=${query}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch users");
@@ -92,7 +93,7 @@ const Adminusers = () => {
     setLoadingId(userId);
     try {
       const response = await fetch(
-        `http://localhost:5000/admin/userdelete/${userId}`,
+        `${BaseUrl}/admin/userdelete/${userId}`,
         {
           method: "DELETE",
           headers: {
@@ -125,7 +126,7 @@ const Adminusers = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/admin/user/status?userId=${userId}&status=${newStatus}`,
+        `${BaseUrl}/admin/user/status?userId=${userId}&status=${newStatus}`,
         {
           method: "PUT",
           headers: {

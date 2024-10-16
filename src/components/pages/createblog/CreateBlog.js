@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { BaseUrl } from "../../Service/Url";
 
 const CreateBlog = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const CreateBlog = () => {
     const fetchBlogs = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/user/update/blogsdata/${blogId}`,
+          `${BaseUrl}/user/update/blogsdata/${blogId}`,
           {
             method: "GET",
             headers: {
@@ -82,11 +83,11 @@ const CreateBlog = () => {
       let url, method;
       if (blogId) {
         // Updating blog
-        url = `http://localhost:5000/blog/update/blogs/${blogId}`;
+        url = `${BaseUrl}/blog/update/blogs/${blogId}`;
         method = "PUT";
       } else {
         // Creating new blog
-        url = `http://localhost:5000/blog/blog-data/${userId}`;
+        url = `${BaseUrl}/blog/blog-data/${userId}`;
         method = "POST";
       }
 

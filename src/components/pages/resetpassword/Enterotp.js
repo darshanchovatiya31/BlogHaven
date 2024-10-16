@@ -3,6 +3,7 @@ import "../login/Login.css";
 import computer from "../../images/login.png";
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import { BaseUrl } from '../../Service/Url';
 
 const Enterotp = () => {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Enterotp = () => {
             return () => clearInterval(countdown);
         } else {
             // Timer expired, delete OTP and handle accordingly
-            fetch(`http://localhost:5000/user/delete-otp/${userId}`, {
+            fetch(`${BaseUrl}/user/delete-otp/${userId}`, {
                 method: "DELETE",
                 headers: {
                     "Content-type": "application/json; charset=UTF-8",
@@ -54,7 +55,7 @@ const Enterotp = () => {
 
     const handleClick = async () => {
         const otpString = otp.join("");
-        const response = await fetch('http://localhost:5000/user/reset-otp', {
+        const response = await fetch(`${BaseUrl}/user/reset-otp`, {
             method: 'POST',
             body: JSON.stringify({ otp: otpString }),
             headers: {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../userprofile/Userprofile.css";
 import { Link } from "react-router-dom";
+import { BaseUrl } from "../../Service/Url";
 
 const Userprofile = () => {
     const [profiledata , setprofiledata] = useState({})
@@ -10,7 +11,7 @@ const Userprofile = () => {
       const fetchBlogs = async () => {
         try {
           const response = await fetch(
-            `http://localhost:5000/user/profiledata`,
+            `${BaseUrl}/user/profiledata`,
             {
               method: "GET",
               headers: {

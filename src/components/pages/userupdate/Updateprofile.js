@@ -1,20 +1,19 @@
 import React, { useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BaseUrl } from '../../Service/Url';
 
 const Updateprofile = () => {
   const location = useLocation();
   const Navigate = useNavigate();
   const {user} = location.state;
-  const {userId} = useParams();
   const [profiledata,setprofiledata] = useState({
     fname: user.fname || "",
     username: user.username || "",
     email: user.email || "",
     profile:null
   });
-
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -33,7 +32,7 @@ const Updateprofile = () => {
 
 
         try {
-          const response = await fetch(`http://localhost:5000/user/update-profile/${userId}`, {
+          const response = await fetch(`${BaseUrl}/user/update-profile/${userId}`, {
               method: 'PUT',
               headers: {
                   'Authorization': `Bearer ${token}`,
