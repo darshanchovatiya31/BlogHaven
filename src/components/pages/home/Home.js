@@ -266,8 +266,6 @@ const Home = () => {
                   src="https://firebasestorage.googleapis.com/v0/b/blog-501fd.appspot.com/o/user%2Fadvertisement%2Fad1.jpg-1729760908437?alt=media&token=193b1ab5-00c0-4622-b6e1-0b93727dd6e0"
                   alt="Advertisement"
                 />
-                <img src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg" alt="" />
-                <h1>hello</h1>
               </div>
             ))}
           </Slider>
