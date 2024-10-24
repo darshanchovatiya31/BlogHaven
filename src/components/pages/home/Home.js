@@ -266,6 +266,7 @@ const Home = () => {
                   src={ads.poster}
                   alt="Advertisement"
                 />
+                <h1>hello</h1>
               </div>
             ))}
           </Slider>
