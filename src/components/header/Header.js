@@ -91,7 +91,7 @@ const Header = ({ bgcolor, btnwhite }) => {
                 <div class="d-flex align-items-center gap-xl-4 gap-2 create_blog_main_btn">
                   <>
                     <button
-                      className="btn  SegoeUI blog-btn fs-6 rounded-0"
+                      className="btn SegoeUI blog-btn fs-6 rounded-0"
                       data-bs-dismiss="offcanvas"
                       aria-label="Close"
                       onClick={HeandleClick}
