@@ -21,11 +21,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-@media (max-width:1399px) {
-    .card_share{
-        width: 100%;
-    }
-}
+
 @media (max-width:991px) {
     .card-img-top{
         height: 265px;

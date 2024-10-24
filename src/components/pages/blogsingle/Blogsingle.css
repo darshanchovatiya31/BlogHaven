@@ -83,5 +83,6 @@
     .subscribe_btn {
         top: 350%;
         right: 30%;
+        width: 135px !important;
     }
 }

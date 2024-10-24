@@ -23,6 +23,9 @@
 .hero p {
     font-size: 35px;
 }
+.hero button{
+    width: 280px;
+}
 
 .load-btn {
     color: #12141699;
