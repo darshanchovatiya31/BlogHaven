@@ -107,9 +107,9 @@ const Blogcard = ({ Blogs }) => {
               <span className="post-date europa_reg me-2">
                 {new Date(Blogs.createdAt).toLocaleDateString("en-IN")}
               </span>
-              <span className="post-date  europa_reg ">
+              {/* <span className="post-date  europa_reg ">
                 <CiShare2 className="fs-4" /> 1K Shares
-              </span>
+              </span> */}
             </div>
           </div>
           <p className="card-text europa_reg mb-1">{Blogs.maindescription}</p>

@@ -22,6 +22,8 @@ import Adminposts from "./components/pages/adminpanel/Adminposts";
 import Adminusers from "./components/pages/adminpanel/Adminusers";
 import Adminpostsingle from "./components/pages/adminpanel/Adminpostsingle";
 import Adminlogin from "./components/pages/adminpanel/Adminlogin";
+import Advertisement from "./components/pages/advertisement/Advertisement";
+import Adminadvertisement from "./components/pages/adminpanel/Adminadvertisement";
 
 function App() {
   return (
@@ -38,8 +40,10 @@ function App() {
           <Route path="/adminpanal" element={<Adminpanel/>} />
           <Route path="/adminposts" element={<Adminposts/>} />
           <Route path="/adminusers" element={<Adminusers/>} />
+          <Route path="/adminadvertisement" element={<Adminadvertisement/>}/>
           <Route path="/admin/postsingle/:blogId" element={<Adminpostsingle />} />
         </Route>
+        <Route path="/advertisement" element={<Advertisement/>}/>
         <Route element={<PrivateRouteotp />}>
           <Route path="/sendotp" element={<Sendotp />} />
           <Route path="/enterotp/:userId" element={<Enterotp />} />

@@ -13,11 +13,11 @@ const Adminusers = () => {
   const [loadingId, setLoadingId] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filter, setFilter] = useState("all"); // new state for filtering
+  const [filter, setFilter] = useState("all");
 
   const fetchUsers = async (statusFilter = "all") => {
     try {
-      let url = `${BaseUrl}/admin/alluser`; // default fetch URL for all users
+      let url = `${BaseUrl}/admin/alluser`;
 
       if (statusFilter !== "all") {
         url = `${BaseUrl}/admin/status/filter?status=${statusFilter}`;

@@ -77,7 +77,7 @@ const Header = ({ bgcolor, btnwhite }) => {
               </div>
               <div className="offcanvas-body">
                 <ul className="navbar-nav mx-auto mb-2 mb-lg-0 menu-border">
-                  {Categary.map((item, index) => (
+                  {/* {Categary.map((item, index) => (
                     <li className="nav-item" key={index}>
                       <Link
                         className="nav-link text-white Europa_Bold menu mb-2 mb-md-0"
@@ -86,7 +86,7 @@ const Header = ({ bgcolor, btnwhite }) => {
                         {item.name}
                       </Link>
                     </li>
-                  ))}
+                  ))} */}
                 </ul>
                 <div class="d-flex align-items-center gap-xl-4 gap-2 create_blog_main_btn">
                   <>

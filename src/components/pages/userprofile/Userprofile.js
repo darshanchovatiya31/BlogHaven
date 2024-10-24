@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../userprofile/Userprofile.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BaseUrl } from "../../Service/Url";
+import { toast } from "react-toastify";
 
 const Userprofile = () => {
     const [profiledata , setprofiledata] = useState({})
     const token = localStorage.getItem("token");
+    const Navigate = useNavigate();
 
     useEffect(() => {
       const fetchBlogs = async () => {
@@ -38,6 +40,14 @@ const Userprofile = () => {
       fetchBlogs();
     }, [token]);
 
+    const handleLogout = () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("profile");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("status");
+      toast.success("Logout successful!", { autoClose: 1000 });
+      Navigate("/login");
+    };
   return (
     <>
       <section className="userprofile">
@@ -64,9 +74,12 @@ const Userprofile = () => {
                 <h3>Email :-</h3>
                 <p>{profiledata.email}</p>
               </div>
+              <div className="justify-content-between d-flex w-100">
               <Link to={`/updateprofile/${profiledata._id}`} state={{user:profiledata}}>
               <button className="profile_edit">Edit Profile</button>
               </Link>
+              <button onClick={handleLogout} className="profile_logout">Logout</button>
+              </div>
             </div>
           </div>
         </div>

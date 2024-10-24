@@ -8,6 +8,7 @@ import { MdLogout } from "react-icons/md";
 import { FiSettings } from "react-icons/fi";
 import "../adminpanel/Adminpanel.css";
 import { toast } from "react-toastify";
+import { RiAdvertisementFill } from "react-icons/ri";
 
 const AdminHeader = () => {
   const Navigate = useNavigate();
@@ -50,18 +51,26 @@ const AdminHeader = () => {
                 <BsFillPostcardFill className="me-2" /> Posts
               </Link>
             </li>
+            <li className="my-4">
+              <Link
+                to={"/adminadvertisement"}
+                className="text-white text-decoration-none fs-5"
+              >
+                <RiAdvertisementFill className="me-2" /> Advertisement
+              </Link>
+            </li>
           </ul>
         </nav>
         <div className="setting_logout">
           <ul>
-            <li className="my-4">
+            {/* <li className="my-4">
               <Link
                 to={"/adminsettings"}
                 className="text-white text-decoration-none fs-5"
               >
                 <FiSettings className="me-2" /> Settings
               </Link>
-            </li>
+            </li> */}
             <li className="my-4">
               <p
                 to={"/logout"}

@@ -77,10 +77,10 @@ const Blogsingle = () => {
               <p className="me-4">
                 {new Date(blog.createdAt).toLocaleDateString("en-IN")}
               </p>
-              <p className="me-4">
+              {/* <p className="me-4">
                 <CiShare2 />
                 1K shares
-              </p>
+              </p> */}
             </div>
             </div>
           </div>

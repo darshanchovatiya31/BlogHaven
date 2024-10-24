@@ -53,18 +53,56 @@ const settings = {
   ],
 };
 
-var adds = {
-  dots: true,
+const advertisement = {
+  dots: false,
   infinite: true,
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
+  autoplaySpeed: 1000,
   autoplay: true,
+  arrows: false,
+  adaptiveHeight: true,
+  responsive: [
+    {
+      breakpoint: 1200,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+    {
+      breakpoint: 992,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+    {
+      breakpoint: 576,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+  ],
 };
 
 const Home = () => {
   const [post, setPost] = useState([]);
   const [showAll, setShowAll] = useState(false);
+  const [adds, setadds] = useState();
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -120,6 +158,29 @@ const Home = () => {
   const handleToggle = () => {
     setShowAll(!showAll);
   };
+
+  useEffect(() => {
+    const fetchAdvertisements = async () => {
+      try {
+        const response = await fetch(`${BaseUrl}/user/status/active`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setadds(data.data);
+        } else {
+          console.error("Failed to fetch advertisements");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    fetchAdvertisements();
+  }, [token]);
   return (
     <>
       <section>
@@ -195,21 +256,23 @@ const Home = () => {
         </div>
       </section>
 
-      <section>
-        <div className="container mt-5">
-          <div className="advertisement">
-          <div><button className="ms-auto d-flex mb-3">Advertisement</button></div>
-            <Slider {...adds}>
-              <div>
-                <img src="https://5.imimg.com/data5/ANDROID/Default/2024/7/436513789/TX/WT/JX/35477174/product-jpeg-500x500.jpg" alt="" />
+      <section className="advertisement-section mb-3">
+        <div className="container">
+          <Slider {...advertisement} className="advertisement-slider mb-3">
+            {adds?.map((ads) => (
+              <div className="slide">
+                <img
+                  className="advertisement-image"
+                  src={ads.poster}
+                  alt="Advertisement"
+                />
               </div>
-              <div>
-                <img src="https://newspaperads.ads2publish.com/wp-content/uploads/2018/07/grand-rakhi-mela-lifestyle-and-fashion-exhibition-ad-mirror-ahmedabad-27-07-2018-592x379.png" alt="" />
-              </div>
-              <div>
-                <img src="https://graphicsfamily.com/wp-content/uploads/edd/2022/11/Professional-Advertising-Poster-Design-for-Tea-Product-scaled.jpg" alt="" />
-              </div>
-            </Slider>
+            ))}
+          </Slider>
+          <div className="text-center">
+            <Link className="btn btn-primary btn-lg" to={"/advertisement"}>
+              Advertise Now
+            </Link>
           </div>
         </div>
       </section>

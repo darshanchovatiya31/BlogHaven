@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import "../blog/Blog.css";
 import mainlogo from "../../images/mainlogo.png";
 import { FaEdit, FaSearch } from "react-icons/fa";
-import { IoShareSocial } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseUrl } from "../../Service/Url";
+import { BiShow } from "react-icons/bi";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -26,15 +26,12 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch(
-          `${BaseUrl}/user/userpost/${userId}`,
-          {
-            method: "GET",
-            headers: {
-              authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(`${BaseUrl}/user/userpost/${userId}`, {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
@@ -52,15 +49,6 @@ const Blog = () => {
 
     fetchBlogs();
   }, [userId, token]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("profile");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("status");
-    toast.success("Logout successful!", { autoClose: 1000 });
-    Navigate("/login");
-  };
 
   // Fetch blogs based on the search query
   const searchBlogs = async (query) => {
@@ -107,15 +95,12 @@ const Blog = () => {
   const fetchAllBlogs = async () => {
     setIsSearching(true); // Set searching to true
     try {
-      const response = await fetch(
-        `${BaseUrl}/user/userpost/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${BaseUrl}/user/userpost/${userId}`, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
@@ -137,15 +122,12 @@ const Blog = () => {
     setLoading(true);
     setLoadingId(blogId);
     try {
-      const response = await fetch(
-        `${BaseUrl}/user/postdelete/${blogId}`,
-        {
-          method: "DELETE",
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${BaseUrl}/user/postdelete/${blogId}`, {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         setBlogs(blogs.filter((blog) => blog._id !== blogId));
       } else {
@@ -204,7 +186,6 @@ const Blog = () => {
                   <img src={profiledata.profile} alt="User Profile" />
                 </div>
               </Link>
-              <button onClick={handleLogout}>Logout</button>
             </div>
           </div>
         </div>
@@ -267,7 +248,10 @@ const Blog = () => {
                       />
                     </i>
                     <i>
-                      <IoShareSocial className="share" />
+                      {/* vive icon */}
+                      <Link to={`/blogsingle/${blog._id}`} className="text-black">
+                        <BiShow className="share" />
+                      </Link>
                     </i>
                   </div>
                 </div>

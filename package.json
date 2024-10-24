@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@cashfreepayments/cashfree-js": "^1.0.5",
     "@ckeditor/ckeditor5-react": "^9.1.0",
     "@editorjs/checklist": "^1.6.0",
     "@editorjs/code": "^2.9.0",
