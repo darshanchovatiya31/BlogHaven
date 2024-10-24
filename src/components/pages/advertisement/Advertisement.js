@@ -108,11 +108,11 @@ const Advertisement = () => {
   const handleDurationChange = (e) => {
     const selectedDuration = e.target.value;
 
-    if (selectedDuration === "7 days") {
+    if (selectedDuration === "7") {
       setPrice(999); // Set price to 999 for 7 days
-    } else if (selectedDuration === "15 days") {
+    } else if (selectedDuration === "15") {
       setPrice(1899); // Set price to 1899 for 15 days
-    } else if (selectedDuration === "30 days") {
+    } else if (selectedDuration === "30") {
       setPrice(3799); // Set price to 3799 for 30 days
     }
   };
@@ -344,9 +344,9 @@ const Advertisement = () => {
                       className="form-select"
                       onChange={handleDurationChange}
                     >
-                      <option value="7 days">7 days</option>
-                      <option value="15 days">15 days</option>
-                      <option value="30 days">30 days</option>
+                      <option value="7">7 days</option>
+                      <option value="15">15 days</option>
+                      <option value="30">30 days</option>
                     </select>
                   </div>
                   <div className="form-group">

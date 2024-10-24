@@ -17,7 +17,7 @@ const settings = {
   slidesToShow: 4,
   slidesToScroll: 1,
   autoplay: true,
-  // speed: 1500,
+  speed: 1500,
   autoplaySpeed: 1500,
   cssEase: "linear",
   arrows: false,

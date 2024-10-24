@@ -33,14 +33,15 @@ const Blog = () => {
           },
         });
 
-        if (!response.ok) {
-          throw new Error(`Error: ${response.statusText}`);
-        }
         const data = await response.json();
-        if (data && data.data) {
-          setBlogs(data.data); // Adjust this line based on actual response structure
+        if (response.ok) {
+          setBlogs(data.data);
+          throw new Error(`Error: ${response.statusText}`);
         } else {
-          console.error("Unexpected API response structure");
+          if (data.message === "TokenExpiredError: jwt expired") {
+            localStorage.clear();
+            Navigate("/login");
+          }
         }
       } catch (error) {
         console.error("Error fetching blogs:", error);
@@ -249,7 +250,10 @@ const Blog = () => {
                     </i>
                     <i>
                       {/* vive icon */}
-                      <Link to={`/blogsingle/${blog._id}`} className="text-black">
+                      <Link
+                        to={`/blogsingle/${blog._id}`}
+                        className="text-black"
+                      >
                         <BiShow className="share" />
                       </Link>
                     </i>
