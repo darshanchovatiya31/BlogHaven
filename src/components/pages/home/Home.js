@@ -263,7 +263,7 @@ const Home = () => {
               <div className="slide">
                 <img
                   className="advertisement-image"
-                  src={ads.poster}
+                  src="https://firebasestorage.googleapis.com/v0/b/blog-501fd.appspot.com/o/user%2Fadvertisement%2Fad1.jpg-1729760908437?alt=media&token=193b1ab5-00c0-4622-b6e1-0b93727dd6e0"
                   alt="Advertisement"
                 />
                 <h1>hello</h1>
