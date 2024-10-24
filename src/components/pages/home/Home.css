@@ -123,6 +123,7 @@
 
 .advertisement-section .advertisement-image {
     width: 100%;
+  display: block !important;
     height: 100%;
     max-width: 1000px;
     object-fit: contain;
