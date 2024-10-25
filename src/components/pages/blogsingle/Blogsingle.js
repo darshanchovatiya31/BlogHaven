@@ -77,10 +77,6 @@ const Blogsingle = () => {
               <p className="me-4">
                 {new Date(blog.createdAt).toLocaleDateString("en-IN")}
               </p>
-              {/* <p className="me-4">
-                <CiShare2 />
-                1K shares
-              </p> */}
             </div>
             </div>
           </div>
