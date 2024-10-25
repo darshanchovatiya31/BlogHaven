@@ -1,4 +1,4 @@
-import { Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./components/pages/home/Home";
 import Login from "./components/pages/login/Login";
@@ -15,7 +15,10 @@ import Error from "./components/pages/error/Error";
 import Scroll from "./components/pages/scrolltotop/Scroll";
 import Userprofile from "./components/pages/userprofile/Userprofile";
 import Updateprofile from "./components/pages/userupdate/Updateprofile";
-import {PrivateRoute, PrivateRouteadmin} from "./components/private/PrivateRoute"
+import {
+  PrivateRoute,
+  PrivateRouteadmin,
+} from "./components/private/PrivateRoute";
 import { PrivateRouteotp } from "./components/private/PrivateRoute";
 import Adminpanel from "./components/pages/adminpanel/Adminpanel";
 import Adminposts from "./components/pages/adminpanel/Adminposts";
@@ -24,6 +27,7 @@ import Adminpostsingle from "./components/pages/adminpanel/Adminpostsingle";
 import Adminlogin from "./components/pages/adminpanel/Adminlogin";
 import Advertisement from "./components/pages/advertisement/Advertisement";
 import Adminadvertisement from "./components/pages/adminpanel/Adminadvertisement";
+import Invoice from "./components/pages/advertisement/Invoice";
 
 function App() {
   return (
@@ -35,15 +39,14 @@ function App() {
         <Route path="*" element={<Error />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/admin/login" element={<Adminlogin/>}/>
+        <Route path="/admin/login" element={<Adminlogin />} />
         <Route element={<PrivateRouteadmin />}>
-          <Route path="/adminpanal" element={<Adminpanel/>} />
-          <Route path="/adminposts" element={<Adminposts/>} />
-          <Route path="/adminusers" element={<Adminusers/>} />
-          <Route path="/adminadvertisement" element={<Adminadvertisement/>}/>
-          <Route path="/admin/postsingle/:blogId" element={<Adminpostsingle />} />
+          <Route path="/adminpanal" element={<Adminpanel />} />
+          <Route path="/adminposts" element={<Adminposts />} />
+          <Route path="/adminusers" element={<Adminusers />} />
+          <Route path="/adminadvertisement" element={<Adminadvertisement />} />
+          <Route path="/admin/postsingle/:blogId" element={<Adminpostsingle />}/>
         </Route>
-        <Route path="/advertisement" element={<Advertisement/>}/>
         <Route element={<PrivateRouteotp />}>
           <Route path="/sendotp" element={<Sendotp />} />
           <Route path="/enterotp/:userId" element={<Enterotp />} />
@@ -57,6 +60,8 @@ function App() {
           <Route path="/editblog/:blogId" element={<CreateBlog />} />
           <Route path="/userprofile" element={<Userprofile />} />
           <Route path="/updateprofile/:userId" element={<Updateprofile />} />
+          <Route path="/advertisement" element={<Advertisement />} />
+          <Route path="/advertisement/invoice/:adId" element={<Invoice />} />
         </Route>
       </Routes>
       <Scroll />
