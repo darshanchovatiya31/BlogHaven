@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../advertisement/Advertisement.css";
 import mainlogo from "../../images/mainlogo.png";
 import { load } from "@cashfreepayments/cashfree-js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BaseUrl } from "../../Service/Url";
 
 const Advertisement = () => {
@@ -12,6 +12,8 @@ const Advertisement = () => {
   const [showModal, setShowModal] = useState(false);
   const [activeFilter, setActiveFilter] = useState("active");
   const [cashfree, setCashfree] = useState(null);
+
+  const Navigate = useNavigate();
 
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
@@ -156,16 +158,15 @@ const Advertisement = () => {
           },
         });
 
-        if (!response.ok) {
-          throw new Error(`Error: ${response.statusText}`);
-        }
         const data = await response.json();
 
-        if (data && data.data) {
+        if (response.ok) {
           setProfileData(data.data);
         } else {
-          console.error("Unexpected API response structure");
+          localStorage.clear();
+          Navigate("/login");
         }
+
       } catch (error) {
         console.error("Error fetching profile data:", error);
       }
@@ -176,18 +177,17 @@ const Advertisement = () => {
 
   // Handle form submission for creating advertisement
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
 
-    // Prepare the form data
     const formData = new FormData(e.target);
 
     try {
       const response = await fetch(`${BaseUrl}/user/ad`, {
         method: "POST",
         headers: {
-          authorization: `Bearer ${token}`, // Ensure the user is authenticated
+          authorization: `Bearer ${token}`,
         },
-        body: formData, // Send form data including the image
+        body: formData,
       });
 
       if (!response.ok) {
@@ -197,35 +197,43 @@ const Advertisement = () => {
       const data = await response.json();
       console.log("Advertisement created successfully:", data);
       fetchBlogs();
-      handleCloseModal(); // Close the modal after successful submission
+      handleCloseModal();
     } catch (error) {
       console.error("Error creating advertisement:", error);
     }
   };
 
-  useEffect(() => {
-    fetchAdvertisements(activeFilter);
-  }, [activeFilter]); // fetch ads whenever filter changes
-
   const fetchAdvertisements = async (filter) => {
     try {
-      const response = await fetch(`${BaseUrl}/user/addstatus/filter/${userId}`, {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${BaseUrl}/user/addstatus/filter/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const result = await response.json();
 
       if (result.success) {
         // setads(filter === "pending" ? result.data.pending : result.data.active);
-        const filteredAds = filter === 'active' ? result.data.active : filter === 'pending' ? result.data.pending : result.data;
-                setads(filteredAds);
+        const filteredAds =
+          filter === "active"
+            ? result.data.active
+            : filter === "pending"
+            ? result.data.pending
+            : result.data;
+        setads(filteredAds);
       }
     } catch (error) {
       console.error("Failed to fetch ads", error);
     }
   };
+
+  useEffect(() => {
+    fetchAdvertisements(activeFilter);
+  }, [activeFilter]);
 
   return (
     <>
@@ -251,72 +259,77 @@ const Advertisement = () => {
 
       <section>
         <div className="container">
-        <div className="blog_hero">
-      <div className="blog_hero_top d-flex justify-content-between">
-        <h3>ALL ({ads?.length})</h3>
-        <div className="head_addpost d-flex align-items-center gap-2">
-          <button onClick={handleOpenModal}>+ NEW Advertisement</button>
-        </div>
-      </div>
-      <div className="pb-4 d-flex justify-content-center gap-3">
-        <button
-          className="py-2 px-sm-4 px-2 btn btn-warning text-white rounded"
-          onClick={() => setActiveFilter("pending")}
-        >
-          Pending
-        </button>
-        <button
-          className="py-2 px-sm-4 px-2 btn btn-success text-white rounded"
-          onClick={() => setActiveFilter("active")}
-        >
-          Active
-        </button>
-      </div>
-      {ads?.length > 0 ? (
-        ads?.map((adds) => (
-          <div
-            key={adds._id}
-            className="blog_hero_bottum d-sm-flex justify-content-between p-md-4 p-2 mb-4"
-          >
-            <div className="blog_hero_detail d-flex align-items-center gap-3">
-              <div className="blog_hero_img">
-                <img src={adds.poster} alt={adds.title} />
-              </div>
-              <div className="blog_hero_text">
-                <h3>{adds.title}</h3>
-                <h4>
-                  Published -{" "}
-                  {new Date(adds.createdAt).toLocaleDateString("en-IN")}
-                </h4>
+          <div className="blog_hero">
+            <div className="blog_hero_top d-flex justify-content-between">
+              <h3>ALL ({ads?.length})</h3>
+              <div className="head_addpost d-flex align-items-center gap-2">
+                <button onClick={handleOpenModal}>+ NEW Advertisement</button>
               </div>
             </div>
-            <div className="blog_hero_crud d-flex align-items-center gap-md-3 gap-2 mt-3 mt-sm-0 justify-content-end">
-              <Link to={`/advertisement/invoice/${adds._id}`}>
-            <button className="py-2 px-sm-4 px-2 btn btn-success text-white rounded" disabled={!adds.paymentClear}>Invoice</button>
-              </Link>
-              {adds.paymentClear ? (
-                <button
-                  className="py-2 px-4 btn btn-secondary rounded"
-                  disabled
-                >
-                  Paid
-                </button>
-              ) : (
-                <button
-                  className="py-2 px-4 btn btn-success rounded"
-                  disabled={!adds.paynow}
-                  onClick={() => handleClick(adds._id)}
-                >
-                  Pay Now
-                </button>
-              )}
+            <div className="pb-4 d-flex justify-content-center gap-3">
+              <button
+                className="py-2 px-sm-4 px-2 btn btn-warning text-white rounded"
+                onClick={() => setActiveFilter("pending")}
+              >
+                Pending
+              </button>
+              <button
+                className="py-2 px-sm-4 px-2 btn btn-success text-white rounded"
+                onClick={() => setActiveFilter("active")}
+              >
+                Active
+              </button>
             </div>
+            {ads?.length > 0 ? (
+              ads?.map((adds) => (
+                <div
+                  key={adds._id}
+                  className="blog_hero_bottum d-sm-flex justify-content-between p-md-4 p-2 mb-4"
+                >
+                  <div className="blog_hero_detail d-flex align-items-center gap-3">
+                    <div className="blog_hero_img">
+                      <img src={adds.poster} alt={adds.title} />
+                    </div>
+                    <div className="blog_hero_text">
+                      <h3>{adds.title}</h3>
+                      <h4>
+                        Published -{" "}
+                        {new Date(adds.createdAt).toLocaleDateString("en-IN")}
+                      </h4>
+                    </div>
+                  </div>
+                  <div className="blog_hero_crud d-flex align-items-center gap-md-3 gap-2 mt-3 mt-sm-0 justify-content-end">
+                    <Link to={`/advertisement/invoice/${adds._id}`}>
+                      <button
+                        className="py-2 px-sm-4 px-2 btn btn-success text-white rounded"
+                        disabled={!adds.paymentClear}
+                      >
+                        Invoice
+                      </button>
+                    </Link>
+                    {adds.paymentClear ? (
+                      <button
+                        className="py-2 px-4 btn btn-secondary rounded"
+                        disabled
+                      >
+                        Paid
+                      </button>
+                    ) : (
+                      <button
+                        className="py-2 px-4 btn btn-success rounded"
+                        disabled={!adds.paynow}
+                        onClick={() => handleClick(adds._id)}
+                      >
+                        Pay Now
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-center fs-3">No Advertisement Found</p>
+            )}
           </div>
-        ))
-      ) : (
-        <p className="text-center fs-3">No Advertisement Found</p>
-      )}
-    </div>
           {showModal && (
             <div className="modal-overlay" onClick={handleCloseModal}>
               <div

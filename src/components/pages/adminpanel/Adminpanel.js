@@ -6,8 +6,10 @@ import AdminHeader from "./AdminHeader";
 import { BsFillPostcardFill } from "react-icons/bs";
 import { BaseUrl } from "../../Service/Url";
 import { RiAdvertisementFill } from "react-icons/ri";
+import { Navigate } from "react-router-dom";
 
 class Adminpanel extends Component {
+
   async componentDidMount() {
     try {
       // Fetch blog data
@@ -51,7 +53,10 @@ class Adminpanel extends Component {
           Earning: dashboardData.data.Earning,
         });
       } else {
-        console.error("Error fetching dashboard data:", dashboardData.message);
+        if (data.message === "TokenExpiredError: jwt expired") {
+          localStorage.clear();
+          Navigate("/login");
+        }
       }
 
       // Fetch payment data

@@ -25,9 +25,9 @@ const Invoice = () => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch invoice');
                 }
-
                 const data = await response.json();
                 setInvoiceData(data.data);
+
             } catch (error) {
                 setError(error.message);
             } finally {

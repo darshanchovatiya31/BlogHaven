@@ -156,12 +156,13 @@ const Blog = () => {
           throw new Error(`Error: ${response.statusText}`);
         }
         const data = await response.json();
-
-        if (data && data.data) {
+        if (response.ok) {
           setprofiledata(data.data);
         } else {
-          console.error("Unexpected API response structure");
+          localStorage.clear();
+          Navigate("/login");
         }
+
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
