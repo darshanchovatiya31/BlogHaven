@@ -13,12 +13,12 @@ import { BaseUrl } from "../../Service/Url";
 
 const settings = {
   dots: false,
-  infinite: false,
+  infinite: true,
   slidesToShow: 4,
   slidesToScroll: 1,
   autoplay: true,
   speed: 1500,
-  autoplaySpeed: 1500,
+  autoplaySpeed: 1000,
   cssEase: "linear",
   arrows: false,
   responsive: [
