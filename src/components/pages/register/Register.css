@@ -1,5 +1,10 @@
 .main_register {
-    background-color: #EBEFFF;
+    background-image: url("../../images/hero.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: overlay;
+    background-color: #00000083;
     height: 100vh;
 }
 
@@ -9,8 +14,11 @@
 }
 
 .register_right {
-    width: 400px;
-    margin-top: 100px;
+    width: 100%;
+    margin-top: 80px;
+    background-color: white;
+    padding: 16px 48px 0 48px;
+    border-radius: 10px;
 }
 
 .register_right_inner p {
@@ -62,10 +70,13 @@
   }
   
 
-@media (max-width: 1199px) {
+@media (max-width: 1399px) {
     .register_right {
-        margin-top: 50px;
+        margin-top: 10px;
     }
+}
+@media (max-width: 991px) {
+    
 }
 
 @media (max-width: 450px) {
@@ -73,11 +84,31 @@
         height: 100%;
         background-color: white;
     }
-
     .register_right {
         width: 100%;
+        padding: 10px 5px 0 5px;
     }
     .register_right_inner .register_btn {
         margin-top: 20px !important;
     }
+    .register_right_inner p {
+        padding-bottom: 0 !important;
+    }
 }
+
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }

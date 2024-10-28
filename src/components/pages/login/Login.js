@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../login/Login.css";
-import computer from "../../images/login.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,7 +8,8 @@ import { BaseUrl } from "../../Service/Url";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); // Used for navigation after success
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [userData, setUserData] = useState({
     email: "",
@@ -21,6 +21,8 @@ const Login = () => {
   };
 
   const handleClick = () => {
+    setIsLoading(true);
+
     fetch(`${BaseUrl}/user/user-login`, {
       method: "POST",
       body: JSON.stringify(userData),
@@ -30,6 +32,8 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        setIsLoading(false);
+
         if (data.success) {
           localStorage.setItem("profile", data.data.profile);
           localStorage.setItem("token", data.Token);
@@ -39,7 +43,7 @@ const Login = () => {
             autoClose: 1000,
           });
           setTimeout(() => {
-            navigate("/"); // Redirect to home after 2 seconds
+            navigate("/");
           }, 2000);
         } else {
           toast.error(data.message || "Login failed!");
@@ -47,6 +51,7 @@ const Login = () => {
         setUserData({ email: "", password: "" });
       })
       .catch((err) => {
+        setIsLoading(false);
         toast.error(err.message || "Something went wrong!");
       });
   };
@@ -60,7 +65,7 @@ const Login = () => {
       <section className="login">
         <div className="container-fluid">
           <div className="row overflow-hidden">
-            <div className="col-xl-9 col-lg-7 px-0 position-relative">
+            <div className="col px-0">
               <div className="login_left">
                 <div className="login_left_inner">
                   <h5 className="text-center mb-4">Welcome Back!</h5>
@@ -94,8 +99,13 @@ const Login = () => {
                   <button
                     className="btn text-white login_btn mt-4"
                     onClick={handleClick}
+                    disabled={isLoading}
                   >
-                    Login
+                    {isLoading ? (
+                      <div className="spinner"></div>
+                    ) : (
+                      "Login"
+                    )}
                   </button>
                   <Link
                     to={"/sendotp"}
@@ -113,16 +123,6 @@ const Login = () => {
                       Register
                     </Link>
                   </p>
-                </div>
-                <div className="login_sidedesign">
-                  <div></div>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-5 px-0 d-none d-lg-block">
-              <div className="login_right position-relative">
-                <div className="login_right_img position-absolute">
-                  <img src={computer} alt="" />
                 </div>
               </div>
             </div>

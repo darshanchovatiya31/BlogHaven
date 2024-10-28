@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../register/Register.css";
-import register from "../../images/register.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,6 +10,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showcPassword, setShowcPassword] = useState(false);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [userData, setUserData] = useState({
     fname: "",
@@ -20,27 +20,31 @@ const Register = () => {
     Confirm_Password: "",
   });
 
-  const [profileImage, setProfileImage] = useState(null); // New state to store the selected file
+  const [profileImage, setProfileImage] = useState(null);
 
   const handleClick = () => {
+    setIsLoading(true);
+
     const formData = new FormData();
     formData.append("fname", userData.fname);
     formData.append("username", userData.username);
     formData.append("email", userData.email);
     formData.append("password", userData.password);
     formData.append("Confirm_Password", userData.Confirm_Password);
-    formData.append("profile", profileImage); // Append the file to the FormData
+    formData.append("profile", profileImage);
 
     fetch(`${BaseUrl}/user/user-signup`, {
       method: "POST",
-      body: formData, // Use formData instead of JSON
+      body: formData,
     })
       .then((res) => res.json())
       .then((data) => {
+        setIsLoading(false);
+
         if (data.success) {
           toast.success("Registered successfully! Redirecting to login...", {
             position: "top-center",
-            autoClose: 2000,
+            autoClose: 1500,
           });
           setTimeout(() => {
             navigate("/login");
@@ -58,9 +62,10 @@ const Register = () => {
           password: "",
           Confirm_Password: "",
         });
-        setProfileImage(null); // Reset the file input
+        setProfileImage(null);
       })
       .catch((err) => {
+        setIsLoading(false);
         toast.error(err.message || "Something went wrong!", {
           position: "top-center",
           autoClose: 3000,
@@ -73,7 +78,7 @@ const Register = () => {
   };
 
   const handleFileChange = (event) => {
-    setProfileImage(event.target.files[0]); // Store the selected file
+    setProfileImage(event.target.files[0]);
   };
 
   const togglePasswordVisibility = () => {
@@ -89,15 +94,10 @@ const Register = () => {
       <section className="main_register">
         <div className="container">
           <div className="register">
-            <div className="row">
-              <div className="col-xl-6 col-lg-7 col-12 p-0 d-none d-lg-block">
-                <div className="register_left">
-                  <img src={register} alt="Register" />
-                </div>
-              </div>
-              <div className="col-xl-6 col-lg-5 col-12 px-2 px-sm-0 d-flex align-items-center justify-content-center">
+            <div className="row justify-content-center">
+              <div className="col-xl-6 col-lg-7 col-12 px-2 px-sm-0 d-flex align-items-center justify-content-center">
                 <div className="register_right">
-                  <h5 className="text-center mb-4">
+                  <h5 className="text-center mb-lg-4">
                     Please Fill out form to Register!
                   </h5>
                   <div className="register_right_inner">
@@ -160,7 +160,6 @@ const Register = () => {
                       </span>
                     </div>
                     <p className="mb-0">Profile Picture:</p>
-                    {/* New file input */}
                     <input
                       type="file"
                       name="profile"
@@ -168,10 +167,15 @@ const Register = () => {
                     />
                   </div>
                   <button
-                    className="btn text-white register_btn mt-5"
+                    className="btn text-white register_btn mt-lg-5 mt-4"
                     onClick={handleClick}
+                    disabled={isLoading} // Disable button during loading
                   >
-                    Register
+                    {isLoading ? (
+                      <div className="spinner"></div> // Inline loader
+                    ) : (
+                      "Register"
+                    )}
                   </button>
                   <p className="inter fw-medium text-center mt-4">
                     Yes, I have an account?{" "}
