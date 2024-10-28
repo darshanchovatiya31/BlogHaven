@@ -9,10 +9,8 @@ import { RiAdvertisementFill } from "react-icons/ri";
 import { Navigate } from "react-router-dom";
 
 class Adminpanel extends Component {
-
   async componentDidMount() {
     try {
-      // Fetch blog data
       const response = await fetch(`${BaseUrl}/admin/chat/dashboard`, {
         method: "GET",
         headers: {
@@ -27,7 +25,7 @@ class Adminpanel extends Component {
           series: [
             {
               ...prevState.series[0],
-              data: data.data, // Set blog data
+              data: data.data,
             },
           ],
         }));
@@ -60,13 +58,16 @@ class Adminpanel extends Component {
       }
 
       // Fetch payment data
-      const paymentResponse = await fetch(`${BaseUrl}/admin/chat/dashboard/payment`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("admintoken")}`,
-        },
-      });
+      const paymentResponse = await fetch(
+        `${BaseUrl}/admin/chat/dashboard/payment`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${localStorage.getItem("admintoken")}`,
+          },
+        }
+      );
       const paymentData = await paymentResponse.json();
 
       if (paymentData.success) {
@@ -123,7 +124,18 @@ class Adminpanel extends Component {
         },
         xaxis: {
           categories: [
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
           ],
           position: "bottum",
           axisBorder: {
@@ -202,7 +214,7 @@ class Adminpanel extends Component {
       ],
       paymentOptions: {
         chart: {
-          type: 'area',
+          type: "area",
           height: 350,
         },
         plotOptions: {
@@ -226,7 +238,18 @@ class Adminpanel extends Component {
         },
         xaxis: {
           categories: [
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
           ],
           position: "bottum",
           axisBorder: {

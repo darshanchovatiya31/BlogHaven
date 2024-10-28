@@ -101,11 +101,7 @@ const Login = () => {
                     onClick={handleClick}
                     disabled={isLoading}
                   >
-                    {isLoading ? (
-                      <div className="spinner"></div>
-                    ) : (
-                      "Login"
-                    )}
+                    {isLoading ? <div className="spinner"></div> : "Login"}
                   </button>
                   <Link
                     to={"/sendotp"}

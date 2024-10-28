@@ -3,6 +3,10 @@
     width: 100%;
     min-height: 100vh;
 }
+.active-link {
+    border-right: 2px solid white;
+  }
+  
 .admin_head{
     width: 290px;
     height: 100vh;
