@@ -105,7 +105,7 @@ const Adminadvertisement = () => {
                     className="blog_hero_bottum d-sm-flex justify-content-between p-md-4 p-2 mb-4"
                   >
                     <div className="blog_hero_detail d-flex align-items-center gap-3">
-                      <div className="blog_hero_img">
+                      <div className="admin_blog_hero_img">
                         <img src={ad.poster} alt="" />
                       </div>
                       <div className="blog_hero_text">
