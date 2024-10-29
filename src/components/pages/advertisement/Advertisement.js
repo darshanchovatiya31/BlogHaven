@@ -287,7 +287,7 @@ const Advertisement = () => {
               ads?.map((adds) => (
                 <div
                   key={adds._id}
-                  className="blog_hero_bottum d-sm-flex justify-content-between p-md-4 p-2 mb-4"
+                  className="blog_hero_bottum d-md-flex justify-content-between p-md-4 p-2 mb-4"
                 >
                   <div className="blog_hero_detail d-flex align-items-center gap-3">
                     <div className="adds_hero_img">
