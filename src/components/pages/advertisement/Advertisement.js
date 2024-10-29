@@ -12,6 +12,7 @@ const Advertisement = () => {
   const [showModal, setShowModal] = useState(false);
   const [activeFilter, setActiveFilter] = useState("active");
   const [cashfree, setCashfree] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const Navigate = useNavigate();
 
@@ -166,7 +167,6 @@ const Advertisement = () => {
           localStorage.clear();
           Navigate("/login");
         }
-
       } catch (error) {
         console.error("Error fetching profile data:", error);
       }
@@ -180,6 +180,7 @@ const Advertisement = () => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
+    setIsLoading(true);
 
     try {
       const response = await fetch(`${BaseUrl}/user/ad`, {
@@ -200,6 +201,8 @@ const Advertisement = () => {
       handleCloseModal();
     } catch (error) {
       console.error("Error creating advertisement:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -413,8 +416,12 @@ const Advertisement = () => {
                     >
                       Cancel
                     </button>
-                    <button type="submit" className="btn btn-primary">
-                      Submit
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? <div className="spinner"></div> : "Submit"}
                     </button>
                   </div>
                 </form>

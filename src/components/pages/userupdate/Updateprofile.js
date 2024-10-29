@@ -1,82 +1,81 @@
-import React, { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { BaseUrl } from '../../Service/Url';
+import { BaseUrl } from "../../Service/Url";
 
-const Updateprofile = () => {
+const UpdateProfile = () => {
   const location = useLocation();
-  const Navigate = useNavigate();
-  const {user} = location.state;
-  const [profiledata,setprofiledata] = useState({
+  const navigate = useNavigate();
+  const { user } = location.state;
+  const [profileData, setProfileData] = useState({
     fname: user.fname || "",
     username: user.username || "",
     email: user.email || "",
-    profile:null
+    profile: null,
   });
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
 
   const handleClick = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Set loading to true
 
-    const { fname, username, email, profile } = profiledata;
-        const userId = user._id; 
-        const token = localStorage.getItem('token'); 
+    const { fname, username, email, profile } = profileData;
+    const userId = user._id;
+    const token = localStorage.getItem("token");
 
-        const updatedProfileData = new FormData();
-        updatedProfileData.append('fname', fname);
-        updatedProfileData.append('username', username);
-        updatedProfileData.append('email', email);
-        if (profile) {
-            updatedProfileData.append('profile', profile);
-        }
+    const updatedProfileData = new FormData();
+    updatedProfileData.append("fname", fname);
+    updatedProfileData.append("username", username);
+    updatedProfileData.append("email", email);
+    if (profile) {
+      updatedProfileData.append("profile", profile);
+    }
 
+    try {
+      const response = await fetch(`${BaseUrl}/user/update-profile/${userId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: updatedProfileData,
+      });
 
-        try {
-          const response = await fetch(`${BaseUrl}/user/update-profile/${userId}`, {
-              method: 'PUT',
-              headers: {
-                  'Authorization': `Bearer ${token}`,
-              },
-              body: updatedProfileData,
-          });
-
-          if (response.ok) {
-              toast.success('Profile updated successfully!',{autoClose:1500});
-              setTimeout(() => {
-                Navigate('/userprofile');
-              }, 2000);
-          } else {
-              const errorData = await response.json();
-              toast.error(errorData.message || 'Failed to update profile.');
-          }
-      } catch (error) {
-          toast.error('An error occurred while updating the profile.');
-          console.error(error);
+      if (response.ok) {
+        toast.success("Profile updated successfully!", { autoClose: 1500 });
+        setTimeout(() => {
+          navigate("/userprofile");
+        }, 2000);
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.message || "Failed to update profile.");
       }
-   
+    } catch (error) {
+      toast.error("An error occurred while updating the profile.");
+      console.error(error);
+    } finally {
+      setIsLoading(false); // Reset loading state
+    }
   };
-
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setprofiledata({ ...profiledata, [name]: value });
+    setProfileData({ ...profileData, [name]: value });
   };
 
-  const handleprofileChange = (e) => {
-    setprofiledata({ ...profiledata, profile: e.target.files[0] });
+  const handleProfileChange = (e) => {
+    setProfileData({ ...profileData, profile: e.target.files[0] });
   };
+
   return (
     <>
-       <section className="main_register">
+      <section className="main_register">
         <div className="container">
           <div className="register">
             <div className="row justify-content-center">
               <div className="col-xl-6 col-lg-5 col-12 bg-white pb-5 rounded mt-5 px-2 px-sm-0 d-flex align-items-center justify-content-center">
                 <div className="register_right">
-                  <h5 className="text-center mb-4">
-                    Update Your Profile
-                  </h5>
+                  <h5 className="text-center mb-4">Update Your Profile</h5>
                   <div className="register_right_inner">
                     <p className="mb-0">Full name:</p>
                     <input
@@ -84,7 +83,7 @@ const Updateprofile = () => {
                       name="fname"
                       required
                       onChange={handleChange}
-                      value={profiledata.fname}
+                      value={profileData.fname}
                     />
                     <p className="mb-0">Username:</p>
                     <input
@@ -92,7 +91,7 @@ const Updateprofile = () => {
                       name="username"
                       required
                       onChange={handleChange}
-                      value={profiledata.username}
+                      value={profileData.username}
                     />
                     <p className="mb-0">Email:</p>
                     <input
@@ -100,20 +99,23 @@ const Updateprofile = () => {
                       name="email"
                       required
                       onChange={handleChange}
-                      value={profiledata.email}
+                      value={profileData.email}
                     />
                     <p className="mb-0">Profile Picture:</p>
                     <input
                       type="file"
                       name="profile"
-                      onChange={handleprofileChange}
+                      onChange={handleProfileChange}
                     />
                   </div>
                   <button
-                    className="btn text-white register_btn mt-5"
+                    className={`btn text-white register_btn mt-5 ${
+                      isLoading ? "loading" : ""
+                    }`}
                     onClick={handleClick}
+                    disabled={isLoading}
                   >
-                    Save Changes
+                    {isLoading ? "Saving..." : "Save Changes"}
                   </button>
                 </div>
               </div>
@@ -123,7 +125,7 @@ const Updateprofile = () => {
       </section>
       <ToastContainer />
     </>
-  )
-}
+  );
+};
 
-export default Updateprofile
+export default UpdateProfile;

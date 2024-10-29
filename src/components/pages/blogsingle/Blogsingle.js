@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../blogsingle/Blogsingle.css";
 import Header from "../../header/Header";
 import { CiShare2 } from "react-icons/ci";
-import Footer from "../../footer/Footer"
+import Footer from "../../footer/Footer";
 import "ckeditor5/ckeditor5.css";
 import "ckeditor5-premium-features/ckeditor5-premium-features.css";
 import Blogcard from "../../card/Blogcard";
@@ -12,7 +12,7 @@ import { BaseUrl } from "../../Service/Url";
 const Blogsingle = () => {
   const [post, setPost] = useState([]);
   const [showAll, setShowAll] = useState(false);
-  const [blog,setBlog] = useState({})
+  const [blog, setBlog] = useState({});
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -37,26 +37,29 @@ const Blogsingle = () => {
     fetchBlogs();
   }, []);
 
-  const { blogId } = useParams()
-  
+  const { blogId } = useParams();
+
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch(`${BaseUrl}/user/view/blogs/post/${blogId}`, {
-          method: "GET",
-          headers: {
-            authorization:`Bearer ${localStorage.getItem("token")}`
-          },
-        });
-        const data = await response.json()
-        setBlog(data.data)
+        const response = await fetch(
+          `${BaseUrl}/user/view/blogs/post/${blogId}`,
+          {
+            method: "GET",
+            headers: {
+              authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        const data = await response.json();
+        setBlog(data.data);
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
-    }
+    };
     fetchBlogs();
   }, [blogId]);
-  
+
   const handleToggle = () => {
     setShowAll(!showAll);
   };
@@ -70,14 +73,14 @@ const Blogsingle = () => {
             style={{ backgroundImage: `url(${blog.blogimg})` }}
           >
             <div className="blogsingle_hero_text">
-            <h1 className="europa_bold text-uppercase">{blog.title}</h1>
-            <p className="fs-sm-4 fs-5 europa_reg">{blog.maindescription}</p>
-            <div className="d-flex flex-wrap">
-              <p className="me-4">{blog.name}</p>
-              <p className="me-4">
-                {new Date(blog.createdAt).toLocaleDateString("en-IN")}
-              </p>
-            </div>
+              <h1 className="europa_bold text-uppercase">{blog.title}</h1>
+              <p className="fs-sm-4 fs-5 europa_reg">{blog.maindescription}</p>
+              <div className="d-flex flex-wrap">
+                <p className="me-4">{blog.name}</p>
+                <p className="me-4">
+                  {new Date(blog.createdAt).toLocaleDateString("en-IN")}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -85,7 +88,7 @@ const Blogsingle = () => {
       <section>
         <div className="container">
           <div className="abot_blog">
-            <h2>Tincidunt veni tellus orci aenean consectetuer</h2>
+            <h2>The Journey of Self-Discovery: Finding Your True Path</h2>
             <p>{blog.adddescription1}</p>
             <div>
               <img
@@ -103,7 +106,7 @@ const Blogsingle = () => {
               commodo ultricies neque. Lorem eget venenatis dui ante luctus
               ultricies tellus montes. Quis in sapien tempus.
             </p>
-            <h2>Eu ridiculus fringilla</h2>
+            <h2>Nourishing Your Body and Soul: The Power of Healthy Eating</h2>
             <p>{blog.adddescription2}</p>
             <div className="blog_img">
               <div className="row justify-content-center">

@@ -92,16 +92,13 @@ const Adminusers = () => {
     setLoading(true);
     setLoadingId(userId);
     try {
-      const response = await fetch(
-        `${BaseUrl}/admin/userdelete/${userId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${localStorage.getItem("admintoken")}`,
-          },
-        }
-      );
+      const response = await fetch(`${BaseUrl}/admin/userdelete/${userId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("admintoken")}`,
+        },
+      });
       if (response.ok) {
         setUsers(users.filter((user) => user._id !== userId));
         toast.success("User deleted successfully", { autoClose: 1500 });

@@ -4,7 +4,6 @@ import mainlogo from "../../images/mainlogo.png";
 import { FaEdit, FaSearch } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseUrl } from "../../Service/Url";
 import { BiShow } from "react-icons/bi";
@@ -162,7 +161,6 @@ const Blog = () => {
           localStorage.clear();
           Navigate("/login");
         }
-
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
@@ -222,15 +220,15 @@ const Blog = () => {
                   className="blog_hero_bottum d-sm-flex justify-content-between p-md-4 p-2 mb-4"
                 >
                   <div className="blog_hero_detail d-flex align-items-center gap-3">
-                    <div className="blog_hero_img">
+                    <div className="blog_single_img">
                       <img src={blog.blogimg} alt={blog.title} />
                     </div>
                     <div className="blog_hero_text">
-                      <h3>{blog.title}</h3>
-                      <h4>
+                      <h4>{blog.title}</h4>
+                      <h5>
                         Published -{" "}
                         {new Date(blog.createdAt).toLocaleDateString("en-IN")}
-                      </h4>
+                      </h5>
                     </div>
                   </div>
                   <div className="blog_hero_crud d-flex align-items-center gap-md-3 gap-2 mt-3 mt-sm-0 justify-content-end">

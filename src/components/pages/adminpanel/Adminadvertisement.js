@@ -109,10 +109,13 @@ const Adminadvertisement = () => {
                         <img src={ad.poster} alt="" />
                       </div>
                       <div className="blog_hero_text">
-                        <h3>
-                          {ad.title} (Published -{" "}
-                          {new Date(ad.createdAt).toLocaleDateString("en-IN")})
-                        </h3>
+                        <h4>
+                          {ad.title}
+                          <h5 className="fs-5">
+                            Published -{" "}
+                            {new Date(ad.createdAt).toLocaleDateString("en-IN")}
+                          </h5>
+                        </h4>
                         <div className="d-flex admin_post_userdata">
                           <img src={ad.userId.profile} alt="" />
                           <h4 className="mb-0"> {ad.userId.fname}</h4>
@@ -120,12 +123,16 @@ const Adminadvertisement = () => {
                       </div>
                     </div>
                     <div className="d-flex align-items-center gap-md-3 gap-2 mt-3 mt-sm-0 justify-content-end">
-                      <h3>
+                      <h5>
                         Payment{" "}
                         <GoDotFill
-                          className={ad.paymentClear === false ? "text-danger" : "text-success"}
+                          className={
+                            ad.paymentClear === false
+                              ? "text-danger"
+                              : "text-success"
+                          }
                         />
-                      </h3>
+                      </h5>
                       <div className="form-check form-switch">
                         <input
                           className="form-check-input"
@@ -146,11 +153,14 @@ const Adminadvertisement = () => {
                       <button
                         className="py-2 px-4 btn btn-success rounded"
                         onClick={() => handleStatusChange(ad._id)}
-                        disabled={ad.paymentClear === false || ad.status === "active"}
+                        disabled={
+                          ad.paymentClear === false || ad.status === "active"
+                        }
                       >
                         {loadingAdId === ad._id ? (
                           <span className="spinner-border spinner-border-sm"></span>
-                        ) : activatedAds.includes(ad._id) || ad.status === "active" ? (
+                        ) : activatedAds.includes(ad._id) ||
+                          ad.status === "active" ? (
                           "Activated"
                         ) : (
                           "Active"

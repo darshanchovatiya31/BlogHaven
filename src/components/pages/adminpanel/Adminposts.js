@@ -21,15 +21,12 @@ const Adminposts = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch(
-          `${BaseUrl}/admin/blog/allblog`,
-          {
-            method: "GET",
-            headers: {
-              authorization: `Bearer ${localStorage.getItem("admintoken")}`,
-            },
-          }
-        );
+        const response = await fetch(`${BaseUrl}/admin/blog/allblog`, {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("admintoken")}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
@@ -117,15 +114,12 @@ const Adminposts = () => {
     setLoading(true);
     setLoadingId(blogId);
     try {
-      const response = await fetch(
-        `${BaseUrl}/admin/postdelete/${blogId}`,
-        {
-          method: "DELETE",
-          headers: {
-            authorization: `Bearer ${localStorage.getItem("admintoken")}`,
-          },
-        }
-      );
+      const response = await fetch(`${BaseUrl}/admin/postdelete/${blogId}`, {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("admintoken")}`,
+        },
+      });
       if (response.ok) {
         setBlogs(blogs.filter((blog) => blog._id !== blogId));
       } else {
@@ -170,15 +164,21 @@ const Adminposts = () => {
                     className="blog_hero_bottum d-sm-flex justify-content-between p-md-4 p-2 mb-4"
                   >
                     <div className="blog_hero_detail d-flex align-items-center gap-3">
-                      <div className="blog_hero_img">
+                      <div className="admin_blog_hero_img">
                         <img src={blog.blogimg} alt={blog.title} />
                       </div>
                       <div className="blog_hero_text">
-                        <h3>
-                          {blog.title} (Published -{" "}
-                          {new Date(blog.createdAt).toLocaleDateString("en-IN")}
-                          )
-                        </h3>
+                        <h4>
+                          {blog.title}
+                          <span className="fs-5">
+                            {" "}
+                            (Published -{" "}
+                            {new Date(blog.createdAt).toLocaleDateString(
+                              "en-IN"
+                            )}
+                            )
+                          </span>
+                        </h4>
                         <div className="d-flex admin_post_userdata">
                           <img src={blog.userId.profile} alt="" />
                           <h4 className="mb-0"> {blog.userId.fname}</h4>

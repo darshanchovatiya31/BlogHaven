@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import "../card/Blogcard.css";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { CiShare2 } from "react-icons/ci";
-import { BaseUrl } from '../Service/Url';
+import { BaseUrl } from "../Service/Url";
 
 const Blogcard = ({ Blogs }) => {
-  const [liked, setLiked] = useState(false);  // To store like status
-  const [count, setCount] = useState(0);  // To store like count
+  const [liked, setLiked] = useState(false); // To store like status
+  const [count, setCount] = useState(0); // To store like count
   const Navigate = useNavigate();
 
   // Function to handle the like/unlike action
@@ -25,19 +24,19 @@ const Blogcard = ({ Blogs }) => {
     try {
       // Perform the API call
       const response = await fetch(likeUrl, {
-        method: 'POST',
+        method: "POST",
         headers: {
           authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update like status');
+        throw new Error("Failed to update like status");
       }
 
       const result = await response.json();
-      console.log('Like/Unlike response:', result);
+      console.log("Like/Unlike response:", result);
 
       // Check if the current userId is in the like array and update the liked state
       if (result.data.like.includes(userId)) {
@@ -49,7 +48,7 @@ const Blogcard = ({ Blogs }) => {
       // Optionally refetch the like count after updating
       LikeCount(blogId);
     } catch (error) {
-      console.error('Error updating like status:', error);
+      console.error("Error updating like status:", error);
     }
   };
 
@@ -58,9 +57,9 @@ const Blogcard = ({ Blogs }) => {
     try {
       const res = await fetch(`${BaseUrl}/user/blog/likeCounts/${blogId}`);
       const data = await res.json();
-      setCount(data.data); 
+      setCount(data.data);
     } catch (error) {
-      console.error('Error fetching like count:', error);
+      console.error("Error fetching like count:", error);
     }
   };
 
@@ -76,8 +75,8 @@ const Blogcard = ({ Blogs }) => {
 
   // Fetch like count and check if the user has liked the Blogs on component mount
   useEffect(() => {
-    LikeCount(Blogs._id);  // Fetch like count
-    checkUserLikedStatus();  // Check if the user has already liked the Blogs
+    LikeCount(Blogs._id); // Fetch like count
+    checkUserLikedStatus(); // Check if the user has already liked the Blogs
   }, [Blogs._id]);
 
   return (
@@ -97,7 +96,7 @@ const Blogcard = ({ Blogs }) => {
                 alt=""
                 width="35px"
                 height="35px"
-                className="rounded-circle"
+                className="rounded-circle blogcard_userimg"
               />
               <h6 className="mb-0 europa_bold pername">
                 {Blogs.userId.username}
@@ -107,9 +106,6 @@ const Blogcard = ({ Blogs }) => {
               <span className="post-date europa_reg me-2">
                 {new Date(Blogs.createdAt).toLocaleDateString("en-IN")}
               </span>
-              {/* <span className="post-date  europa_reg ">
-                <CiShare2 className="fs-4" /> 1K Shares
-              </span> */}
             </div>
           </div>
           <p className="card-text europa_reg mb-1">{Blogs.maindescription}</p>
@@ -124,7 +120,7 @@ const Blogcard = ({ Blogs }) => {
               <span className="europa_bold likes">{count}</span>
               <span
                 className="europa_bold "
-                onClick={()=>toggleLike(Blogs._id)}
+                onClick={() => toggleLike(Blogs._id)}
                 style={{ cursor: "pointer" }}
               >
                 {liked ? (
@@ -141,4 +137,4 @@ const Blogcard = ({ Blogs }) => {
   );
 };
 
-export default Blogcard
+export default Blogcard;

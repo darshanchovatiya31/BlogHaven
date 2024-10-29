@@ -215,13 +215,13 @@ const Home = () => {
         <div className="container">
           <div className="blogs my-5">
             <div className="row justify-content-center">
-              {post.slice(0, showAll ? post.length : 3).map((item, index) => (
+              {post.slice(0, showAll ? post.length : 6).map((item, index) => (
                 <div className="col-xl-4 col-md-6" key={index}>
                   <Blogcard Blogs={item} />
                 </div>
               ))}
             </div>
-            {post.length > 3 && (
+            {post.length > 6 && (
               <button
                 className="load-btn europa_bold bg-white"
                 onClick={handleToggle}

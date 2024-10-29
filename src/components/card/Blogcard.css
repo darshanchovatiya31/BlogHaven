@@ -21,6 +21,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  .blogcard_userimg{
+    object-fit: cover;
+  }
 
 @media (max-width:991px) {
     .card-img-top{

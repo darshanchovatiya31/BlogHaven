@@ -80,6 +80,7 @@
 .user_hero_img img{
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 .admin_post_userdata{
     align-items: center;
@@ -89,6 +90,7 @@
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
 }
 .block_unblock{
     padding:5px 10px;
@@ -103,6 +105,13 @@
     border: none;
     border-radius: 20px;
     font-size: 20px;
+}
+.admin_blog_hero_img img{
+    width: 190px !important;
+    height: 130px !important;
+}
+.blog_hero_text{
+    max-width: 1000px;
 }
 .active_btn_icon{
     color: green;
@@ -141,3 +150,18 @@
     outline: none;
   }
   
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
