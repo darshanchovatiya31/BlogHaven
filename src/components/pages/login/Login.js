@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseUrl } from "../../Service/Url";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -68,6 +69,9 @@ const Login = () => {
             <div className="col px-0">
               <div className="login_left">
                 <div className="login_left_inner">
+                  <Link to={"/"}>
+                    <FaArrowLeftLong className="fs-3"/>
+                  </Link>
                   <h5 className="text-center mb-4">Welcome Back!</h5>
                   <div>
                     <p className="mb-0">Email:</p>
