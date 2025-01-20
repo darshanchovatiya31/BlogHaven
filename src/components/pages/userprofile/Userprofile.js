@@ -3,6 +3,7 @@ import "../userprofile/Userprofile.css";
 import { Link, useNavigate } from "react-router-dom";
 import { BaseUrl } from "../../Service/Url";
 import { toast } from "react-toastify";
+import { MdOutlineKeyboardBackspace } from "react-icons/md";
 
 const Userprofile = () => {
     const [profiledata , setprofiledata] = useState({})
@@ -52,6 +53,9 @@ const Userprofile = () => {
     <>
       <section className="userprofile">
         <div className="profile_container">
+        <div className="rov">
+          <Link to={"/blog"}><h1><MdOutlineKeyboardBackspace /></h1></Link>
+        </div>
           <div className="row mb-md-5">
             <div className="col-12">
               <div className="profile_img text-center">

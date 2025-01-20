@@ -237,11 +237,11 @@ const Home = () => {
         <div className="container-fluid">
           <div className="travel">
             <div className="text-center container">
-              <span className="europa_bold text-white">Blogs</span>
-              <h2 className="text-white europa_bold mb-2 mt-2">
+              <span className="europa_bold">Blogs</span>
+              <h2 className="europa_bold mb-2 mt-2">
                 Ricird Norton Photorealistic rendering as real photos
               </h2>
-              <p className="europa_reg text-white mb-3">
+              <p className="europa_reg mb-3">
                 Progressively incentivize cooperative systems through
                 technically sound functionalities. The credibly productivate
                 seamless data.

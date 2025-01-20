@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "../login/Login.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseUrl } from "../../Service/Url";
+import { MdOutlineKeyboardBackspace } from "react-icons/md";
 
 const Sendotp = () => {
   const navigate = useNavigate();
@@ -52,7 +53,8 @@ const Sendotp = () => {
           <div className="row overflow-hidden">
             <div className="col px-0">
               <div className="login_left">
-                <div className="login_left_inner py-5">
+              <div className="login_left_inner pb-5 pt-0">
+                  <Link to={"/login"}><h1 className="mb-0"><MdOutlineKeyboardBackspace /></h1></Link>
                   <h5 className="text-center mb-4 fs-2">Reset Password</h5>
                   <div>
                     <p className="mb-0">Enter Your Email:</p>

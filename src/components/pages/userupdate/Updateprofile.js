@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseUrl } from "../../Service/Url";
+import { MdOutlineKeyboardBackspace } from "react-icons/md";
 
 const UpdateProfile = () => {
   const location = useLocation();
@@ -74,7 +75,10 @@ const UpdateProfile = () => {
           <div className="register">
             <div className="row justify-content-center">
               <div className="col-xl-6 col-lg-5 col-12 bg-white pb-5 rounded mt-5 px-2 px-sm-0 d-flex align-items-center justify-content-center">
-                <div className="register_right">
+                <div className="register_right mt-0">
+                <div className="row">
+                  <Link to={"/userprofile"}><h1><MdOutlineKeyboardBackspace /></h1></Link>
+                </div>
                   <h5 className="text-center mb-4">Update Your Profile</h5>
                   <div className="register_right_inner">
                     <p className="mb-0">Full name:</p>
