@@ -1,7 +1,7 @@
 import React, { useState, useRef,useEffect } from "react"; // Import useRef
 import "./CreateBlog.css";
 import { Categary } from "../../data/Data";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -309,7 +309,6 @@ const CreateBlog = () => {
           <div className="modern-loader"></div>
         </div>
       )}
-      <ToastContainer />
     </section>
   );
 };

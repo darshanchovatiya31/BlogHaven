@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseUrl } from "../../Service/Url";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
@@ -127,7 +127,6 @@ const UpdateProfile = () => {
           </div>
         </div>
       </section>
-      <ToastContainer />
     </>
   );
 };

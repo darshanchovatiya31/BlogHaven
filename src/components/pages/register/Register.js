@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../register/Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseUrl } from "../../Service/Url";
 
@@ -44,11 +44,11 @@ const Register = () => {
         if (data.success) {
           toast.success("Registered successfully! Redirecting to login...", {
             position: "top-center",
-            autoClose: 1500,
+            autoClose: 2000,
           });
           setTimeout(() => {
             navigate("/login");
-          }, 2000);
+          }, 2500);
         } else {
           toast.error(data.message || "Registration failed!", {
             position: "top-center",
@@ -192,7 +192,6 @@ const Register = () => {
           </div>
         </div>
       </section>
-      <ToastContainer />
     </>
   );
 };

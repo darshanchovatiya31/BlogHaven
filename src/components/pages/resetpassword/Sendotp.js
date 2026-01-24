@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../login/Login.css";
 import { Link, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseUrl } from "../../Service/Url";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
@@ -79,7 +79,6 @@ const Sendotp = () => {
           </div>
         </div>
       </section>
-      <ToastContainer />
     </>
   );
 };

@@ -3,7 +3,7 @@ import "../header/Header.css";
 import logo from "../images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Categary } from "../data/Data.js";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Header = ({ bgcolor, btnwhite }) => {
@@ -106,7 +106,6 @@ const Header = ({ bgcolor, btnwhite }) => {
           </div>
         </nav>
       </header>
-      <ToastContainer />
     </>
   );
 };

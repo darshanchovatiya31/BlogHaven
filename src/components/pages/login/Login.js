@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../login/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseUrl } from "../../Service/Url";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -129,7 +129,6 @@ const Login = () => {
           </div>
         </div>
       </section>
-      <ToastContainer />
     </>
   );
 };
