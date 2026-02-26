@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../userupdate/UpdateProfile.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -70,17 +71,17 @@ const UpdateProfile = () => {
 
   return (
     <>
-      <section className="main_register">
-        <div className="container">
-          <div className="register">
-            <div className="row justify-content-center">
-              <div className="col-xl-6 col-lg-5 col-12 bg-white pb-5 rounded mt-5 px-2 px-sm-0 d-flex align-items-center justify-content-center">
-                <div className="register_right mt-0">
-                <div className="row">
-                  <Link to={"/userprofile"}><h1><MdOutlineKeyboardBackspace /></h1></Link>
-                </div>
+      <section className="update_profile">
+        <div className="container-fluid">
+          <div className="row overflow-hidden">
+            <div className="col px-0">
+              <div className="update_profile_wrapper">
+                <div className="update_profile_inner">
+                  <Link to={"/userprofile"}>
+                    <MdOutlineKeyboardBackspace className="back_arrow" />
+                  </Link>
                   <h5 className="text-center mb-4">Update Your Profile</h5>
-                  <div className="register_right_inner">
+                  <div className="update_form">
                     <p className="mb-0">Full name:</p>
                     <input
                       type="text"
@@ -113,7 +114,7 @@ const UpdateProfile = () => {
                     />
                   </div>
                   <button
-                    className={`btn text-white register_btn mt-5 ${
+                    className={`btn text-white update_btn mt-4 ${
                       isLoading ? "loading" : ""
                     }`}
                     onClick={handleClick}

@@ -21,76 +21,78 @@ const AdminHeader = () => {
 
   return (
     <>
-      <header>
+      <header className="admin-sidebar">
         <div className="admin_logo">
-          <img src={Logo} alt="" className="" />
+          <img src={Logo} alt="Blog Haven Logo" />
         </div>
         <div className="main">
-          <nav>
-            <ul className="mt-5">
-              <li
-                className={`my-4  ${
-                  location.pathname === "/adminpanal" ? "active-link" : ""
-                }`}
-              >
+          <nav className="admin-nav">
+            <ul className="admin-nav-list">
+              <li>
                 <Link
                   to="/adminpanal"
-                  className={`text-white text-decoration-none fs-5`}
+                  className={`admin-nav-link ${
+                    location.pathname === "/adminpanal" ? "active" : ""
+                  }`}
                 >
-                  <IoHomeSharp className="me-2" /> Dashboard
+                  <IoHomeSharp className="admin-nav-icon" />
+                  <span>Dashboard</span>
                 </Link>
               </li>
-              <li
-                className={`my-4 ${
-                  location.pathname === "/adminusers" ? "active-link" : ""
-                }`}
-              >
+              <li>
                 <Link
                   to="/adminusers"
-                  className={`text-white text-decoration-none fs-5`}
+                  className={`admin-nav-link ${
+                    location.pathname === "/adminusers" ? "active" : ""
+                  }`}
                 >
-                  <FaUserAlt className="me-2" /> Users
+                  <FaUserAlt className="admin-nav-icon" />
+                  <span>Users</span>
                 </Link>
               </li>
-              <li
-                className={`my-4  ${
-                  location.pathname === "/adminposts" ? "active-link" : ""
-                }`}
-              >
+              <li>
                 <Link
                   to="/adminposts"
-                  className={`text-white text-decoration-none fs-5 `}
+                  className={`admin-nav-link ${
+                    location.pathname === "/adminposts" ? "active" : ""
+                  }`}
                 >
-                  <BsFillPostcardFill className="me-2" /> Posts
+                  <BsFillPostcardFill className="admin-nav-icon" />
+                  <span>Posts</span>
                 </Link>
               </li>
-              <li
-                className={`my-4  ${
-                  location.pathname === "/adminadvertisement"
-                    ? "active-link"
-                    : ""
-                }`}
-              >
+              <li>
                 <Link
                   to="/adminadvertisement"
-                  className={`text-white text-decoration-none fs-5 `}
+                  className={`admin-nav-link ${
+                    location.pathname === "/adminadvertisement" ? "active" : ""
+                  }`}
                 >
-                  <RiAdvertisementFill className="me-2" /> Advertisement
+                  <RiAdvertisementFill className="admin-nav-icon" />
+                  <span>Advertisement</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/admincategories"
+                  className={`admin-nav-link ${
+                    location.pathname === "/admincategories" ? "active" : ""
+                  }`}
+                >
+                  <BsFillPostcardFill className="admin-nav-icon" />
+                  <span>Categories</span>
                 </Link>
               </li>
             </ul>
           </nav>
           <div className="setting_logout">
-            <ul>
-              <li className="my-4">
-                <p
-                  className="text-white text-decoration-none fs-5"
-                  onClick={handleLogout}
-                >
-                  <MdLogout className="me-2" /> Logout
-                </p>
-              </li>
-            </ul>
+            <div
+              className="admin-nav-link admin-logout-link"
+              onClick={handleLogout}
+            >
+              <MdLogout className="admin-nav-icon" />
+              <span>Logout</span>
+            </div>
           </div>
         </div>
       </header>

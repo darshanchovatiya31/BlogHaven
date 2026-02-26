@@ -156,100 +156,116 @@ const Adminusers = () => {
         <div className="admin_head">
           <AdminHeader />
         </div>
-        <section>
+        <section className="admin-users-section">
           <div className="adminsection">
-            <h2 className="p-3 text-uppercase">Users</h2>
-            <div className="blog_hero">
-              <div className="head_search mx-auto mt-3">
-                <input
-                  type="text"
-                  placeholder="Search Users"
-                  value={searchTerm}
-                  onChange={handleSearch}
-                />
-                <FaSearch className="icon" />
+            <div className="admin-users-header">
+              <h1 className="admin-users-title">Users</h1>
+              <p className="admin-users-subtitle">Manage all platform users and their status</p>
+            </div>
+            <div className="admin-users-content">
+              <div className="admin-users-search">
+                <div className="search-container">
+                  <FaSearch className="search-icon" />
+                  <input
+                    type="text"
+                    placeholder="Search users by username..."
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    className="search-input"
+                  />
+                </div>
               </div>
-              <div className="blog_hero_top d-flex gap-5">
+              <div className="admin-users-filters">
                 <button
-                  className="align-items-center d-flex"
+                  className={`filter-btn ${filter === "all" ? "active" : ""}`}
                   onClick={() => handleFilterChange("all")}
                 >
-                  ALL
+                  All
                 </button>
                 <button
-                  className="align-items-center d-flex"
+                  className={`filter-btn ${filter === "pending" ? "active" : ""}`}
                   onClick={() => handleFilterChange("pending")}
                 >
-                  <FaDotCircle className="pending_btn_icon me-2" />
-                  PENDING
+                  <FaDotCircle className="filter-icon pending" />
+                  Pending
                 </button>
                 <button
-                  className="align-items-center d-flex"
+                  className={`filter-btn ${filter === "active" ? "active" : ""}`}
                   onClick={() => handleFilterChange("active")}
                 >
-                  <FaDotCircle className="active_btn_icon me-2" />
-                  ACTIVE
+                  <FaDotCircle className="filter-icon active" />
+                  Active
                 </button>
                 <button
-                  className="align-items-center d-flex"
+                  className={`filter-btn ${filter === "block" ? "active" : ""}`}
                   onClick={() => handleFilterChange("block")}
                 >
-                  <FaDotCircle className="block_btn_icon me-2" />
-                  BLOCK
+                  <FaDotCircle className="filter-icon block" />
+                  Blocked
                 </button>
               </div>
               {isSearching ? (
-                <p className="text-center fs-3">Searching...</p>
+                <div className="admin-users-loading">
+                  <div className="loading-spinner"></div>
+                  <p>Searching users...</p>
+                </div>
               ) : users?.length > 0 ? (
-                users?.map((user) => (
-                  <div
-                    key={user._id}
-                    className="blog_hero_bottum d-sm-flex justify-content-between p-md-4 p-2 mb-4"
-                  >
-                    <div className="blog_hero_detail d-flex align-items-center gap-3">
-                      <div className="user_hero_img">
-                        <img src={user.profile} alt={user.fname} />
-                      </div>
-                      <div className="blog_hero_text">
-                        <h3>
-                          {user.username} ({user.fname})
-                        </h3>
-                        <h4>{user.email}</h4>
-                        <h6>
-                          {user.title} Join Date -{" "}
-                          {new Date(user.createdAt).toLocaleDateString("en-IN")}
-                        </h6>
-                      </div>
-                    </div>
-                    <div className="blog_hero_crud d-flex align-items-center gap-md-3 gap-2 mt-3 mt-sm-0 justify-content-end">
-                      <button
-                        className={`status-button ${
-                          user.status === "pending" || user.status === "block"
-                            ? "activate"
-                            : "block"
-                        }`}
-                        onClick={() =>
-                          handleStatusChange(user._id, user.status)
-                        }
-                      >
-                        {user.status === "pending" || user.status === "block"
-                          ? "Activate"
-                          : "Block"}
-                      </button>
-                      <i>
-                        {loading && loadingId === user._id ? (
-                          <div className="loader"></div>
-                        ) : (
-                          <span onClick={(e) => handleDeleteClick(user._id, e)}>
-                            <MdDelete className="delete" />
+                <div className="admin-users-list">
+                  {users.map((user) => (
+                    <div key={user._id} className="admin-user-card">
+                      <div className="admin-user-info">
+                        <div className="admin-user-avatar">
+                          <img src={user.profile} alt={user.fname} />
+                          <span className={`status-badge status-${user.status}`}>
+                            {user.status}
                           </span>
-                        )}
-                      </i>
+                        </div>
+                        <div className="admin-user-details">
+                          <h3 className="admin-user-name">
+                            {user.username} <span className="admin-user-fullname">({user.fname})</span>
+                          </h3>
+                          <p className="admin-user-email">{user.email}</p>
+                          <p className="admin-user-date">
+                            Joined: {new Date(user.createdAt).toLocaleDateString("en-IN", {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric"
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="admin-user-actions">
+                        <button
+                          className={`admin-status-btn ${
+                            user.status === "pending" || user.status === "block"
+                              ? "activate"
+                              : "block"
+                          }`}
+                          onClick={() => handleStatusChange(user._id, user.status)}
+                        >
+                          {user.status === "pending" || user.status === "block"
+                            ? "Activate"
+                            : "Block"}
+                        </button>
+                        <button
+                          className="admin-delete-btn"
+                          onClick={(e) => handleDeleteClick(user._id, e)}
+                          disabled={loading && loadingId === user._id}
+                        >
+                          {loading && loadingId === user._id ? (
+                            <div className="action-spinner"></div>
+                          ) : (
+                            <MdDelete />
+                          )}
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))
+                  ))}
+                </div>
               ) : (
-                <p className="text-center fs-3">No Users Found</p>
+                <div className="admin-users-empty">
+                  <p>No users found</p>
+                </div>
               )}
             </div>
           </div>

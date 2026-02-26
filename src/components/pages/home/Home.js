@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../home/Home.css";
 import Header from "../../header/Header";
-import { Categary, Destinations } from "../../data/Data";
+import { Destinations } from "../../data/Data";
 import Blogcard from "../../card/Blogcard";
 import Footer from "../../footer/Footer";
 import { Link } from "react-router-dom";
@@ -101,6 +101,8 @@ const Home = () => {
   const [post, setPost] = useState([]);
   const [showAll, setShowAll] = useState(false);
   const [adds, setadds] = useState();
+  const [categories, setCategories] = useState([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
 
   const token = localStorage.getItem("token");
 
@@ -128,31 +130,67 @@ const Home = () => {
     fetchBlogs();
   }, []);
 
-  const [selectedCategory, setSelectedCategory] = useState("Business"); // Default category
+  const [selectedCategory, setSelectedCategory] = useState(""); // Default category
   const [categoryData, setCategoryData] = useState([]);
+  const [categoryDataLoading, setCategoryDataLoading] = useState(false);
+
+  // Fetch categories from API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setCategoriesLoading(true);
+      try {
+        const response = await fetch(`${BaseUrl}/user/categories?activeOnly=true`);
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          const activeCategories = data.data || [];
+          setCategories(activeCategories);
+          // Set first category as default if available
+          if (activeCategories.length > 0 && !selectedCategory) {
+            setSelectedCategory(activeCategories[0].name);
+          }
+        } else {
+          console.error("Error fetching categories:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   // Function to fetch blogs based on the selected category
   const fetchCategoryBlogs = async (category) => {
+    if (!category) return;
+    
+    setCategoryDataLoading(true);
     try {
       const response = await fetch(`${BaseUrl}/user/category/blog`);
       const data = await response.json();
 
-      if (response.ok) {
+      if (response.ok && data.success) {
         // Update categoryData based on the selected category
-        setCategoryData(data.data[category]);
+        setCategoryData(data.data[category] || []);
       } else {
         console.error("Error fetching blogs:", data.message);
+        setCategoryData([]);
       }
     } catch (error) {
       console.error("Error:", error);
+      setCategoryData([]);
+    } finally {
+      setCategoryDataLoading(false);
     }
   };
-  const filteredData = selectedCategory
-    ? categoryData.filter((item) => item.category === selectedCategory)
-    : categoryData;
+
   // Effect to fetch blogs when a new category is selected
   useEffect(() => {
-    fetchCategoryBlogs(selectedCategory);
+    if (selectedCategory) {
+      fetchCategoryBlogs(selectedCategory);
+    }
   }, [selectedCategory]);
 
   const handleToggle = () => {
@@ -191,17 +229,14 @@ const Home = () => {
           <div className="hero">
             <div className="container">
               <div className="text-center">
-                <h1 className="text-white mb-0 europa_bold">
-                  {/* INSPIRATION FOR TRAVEL BY REAL PEOPLE */}
+                <h1 className="europa_bold">
                   INSPIRATION BY REAL PEOPLE: SIMPLE IDEAS, BIG IMPACT
                 </h1>
-                <p className="text-white mb-3 europa_reg">
-                  {/* Book smart, travel simple */}
+                <p className="europa_reg">
                   Create Smart, Live Simply
                 </p>
                 <Link to={"/blog"}>
-                  <button className="btn bg-white border-0 rounded-1 europa_bold px-lg-5 px-4 py-2">
-                    {/* Start Planning your trip */}
+                  <button className="btn europa_bold">
                     Start Creating your Blog
                   </button>
                 </Link>
@@ -256,7 +291,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="advertisement-section mb-3">
+      <section className="advertisement-section">
         <div className="container">
           <Slider {...advertisement} className="advertisement-slider mb-3">
             {adds?.map((ads) => (
@@ -307,49 +342,58 @@ const Home = () => {
         <div className="container">
           <div className="category">
             {/* Category Buttons */}
-            <div className="d-lg-flex d-none gap-xl-5 gap-lg-4 flex-wrap justify-content-center category_name mb-4">
-              {[
-                "Business",
-                "Education",
-                "Food",
-                "Arts",
-                "Fashion",
-                "Entertainment",
-              ].map((category) => (
-                <p
-                  key={category}
-                  className={`mb-2 fw-bold fs-5 ${
-                    selectedCategory === category ? "activecategory" : ""
-                  }`}
-                  onClick={() => setSelectedCategory(category)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {category}
-                </p>
-              ))}
-            </div>
+            {categoriesLoading ? (
+              <div className="text-center mb-4">
+                <p>Loading categories...</p>
+              </div>
+            ) : categories.length > 0 ? (
+              <>
+                <div className="d-lg-flex d-none gap-xl-5 gap-lg-4 flex-wrap justify-content-center category_name mb-4">
+                  {categories.map((category) => (
+                    <p
+                      key={category._id}
+                      className={`mb-2 fw-bold fs-5 ${
+                        selectedCategory === category.name ? "activecategory" : ""
+                      }`}
+                      onClick={() => setSelectedCategory(category.name)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {category.name}
+                    </p>
+                  ))}
+                </div>
 
-            <div className="d-flex gap-xl-5 gap-lg-4 flex-wrap justify-content-center mb-3 category_name d-lg-none">
-              <h2>Select Category</h2>
-              <select
-                className="form-select"
-                aria-label="Default select example"
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-              >
-                <option value="" disabled>
-                  Select Category
-                </option>
-                {Categary.map((item) => (
-                  <option key={item.name} value={item.name}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+                <div className="d-flex gap-xl-5 gap-lg-4 flex-wrap justify-content-center mb-3 category_name d-lg-none">
+                  <h2>Select Category</h2>
+                  <select
+                    className="form-select"
+                    aria-label="Default select example"
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                  >
+                    <option value="" disabled>
+                      Select Category
+                    </option>
+                    {categories.map((category) => (
+                      <option key={category._id} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            ) : (
+              <div className="text-center mb-4">
+                <p>No categories available</p>
+              </div>
+            )}
 
             {/* Blog Posts */}
-            {categoryData.length > 0 ? (
+            {categoryDataLoading ? (
+              <div className="text-center mt-5">
+                <p>Loading category blogs...</p>
+              </div>
+            ) : categoryData.length > 0 ? (
               <div className="row justify-content-between gap-3 gap-lg-0">
                 <div className="col-lg-6">
                   <div className="category_left border p-3">
@@ -373,7 +417,7 @@ const Home = () => {
                     </Link>
                   </div>
                 </div>
-                <div className="col-lg-5 col-12">
+                <div className="col-lg-6 col-12">
                   {categoryData.length > 1 ? (
                     <div className="category_right border">
                       {categoryData.slice(1, 5).map((item) => (

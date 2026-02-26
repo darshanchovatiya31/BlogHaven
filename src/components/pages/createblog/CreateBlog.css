@@ -1,49 +1,146 @@
-.CreateBlog .card {
-    border-radius: 15px;
-    background-color: #f9fafb;
+.CreateBlog {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    padding: 40px 0 60px;
 }
 
-.CreateBlog .btn-primary {
-    background-color: #007bff;
-    border: none;
-    border-radius: 50px;
-    padding: 12px;
-    font-size: 16px;
+.CreateBlog .container {
+    max-width: 900px;
+}
+
+.CreateBlog .card {
+    border-radius: 16px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+}
+
+.CreateBlog h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
 }
 
 .CreateBlog .form-label {
     font-weight: 600;
+    font-size: 15px;
+    color: #333333;
+    margin-bottom: 8px;
+    display: block;
 }
 
-.CreateBlog input,
-select,
-textarea {
-    border-radius: 8px;
+.CreateBlog input[type="text"],
+.CreateBlog input[type="file"],
+.CreateBlog select,
+.CreateBlog textarea {
+    border-radius: 10px;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    font-size: 15px;
+    color: #1a1a1a;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+    width: 100%;
+}
+
+.CreateBlog input[type="file"] {
     padding: 10px;
+    cursor: pointer;
+}
+
+.CreateBlog input[type="file"]::file-selector-button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid #d0d0d0;
+    background-color: #f5f5f5;
+    color: #333333;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 12px;
+    transition: all 0.3s ease;
+}
+
+.CreateBlog input[type="file"]::file-selector-button:hover {
+    background-color: #e8e8e8;
+    border-color: #c0c0c0;
 }
 
 .CreateBlog input::placeholder,
-textarea::placeholder {
-    color: #6c757d;
+.CreateBlog textarea::placeholder {
+    color: #999999;
+    font-weight: 400;
 }
 
-.CreateBlog input:focus,
-select:focus,
-textarea:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+.CreateBlog input[type="text"]:focus,
+.CreateBlog select:focus,
+.CreateBlog textarea:focus {
+    outline: none;
+    border-color: #656ED3;
+    box-shadow: 0 0 0 3px rgba(101, 110, 211, 0.1);
+    background-color: #ffffff;
 }
 
 .CreateBlog select {
     cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
 }
 
 .CreateBlog textarea {
-    resize: none;
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+}
+
+.CreateBlog .btn-primary {
+    background-color: #656ED3;
+    border: 2px solid #656ED3;
+    border-radius: 10px;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(101, 110, 211, 0.3);
+    margin-top: 8px;
+}
+
+.CreateBlog .btn-primary:hover:not(:disabled) {
+    background-color: #5568c2;
+    border-color: #5568c2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(101, 110, 211, 0.4);
+}
+
+.CreateBlog .btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.CreateBlog .mb-3 {
+    margin-bottom: 24px;
+}
+
+.CreateBlog a {
+    color: #1a1a1a;
+    transition: color 0.3s ease;
+}
+
+.CreateBlog a:hover {
+    color: #656ED3;
 }
 .blurred {
     filter: blur(5px);
     pointer-events: none;
+    opacity: 0.6;
 }
 
 .loader-overlay {
@@ -52,7 +149,8 @@ textarea:focus {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,12 +158,12 @@ textarea:focus {
 }
 
 .modern-loader {
-    border: 6px solid black;
-    border-top: 6px solid transparent;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #656ED3;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
+    width: 50px;
+    height: 50px;
+    animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -75,5 +173,119 @@ textarea:focus {
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .CreateBlog {
+        padding: 30px 0 50px;
+    }
+
+    .CreateBlog .card {
+        padding: 35px;
+    }
+
+    .CreateBlog h2 {
+        font-size: 28px;
+        margin-bottom: 28px;
+    }
+}
+
+@media (max-width: 767px) {
+    .CreateBlog {
+        padding: 25px 0 40px;
+    }
+
+    .CreateBlog .card {
+        padding: 30px 20px;
+        border-radius: 12px;
+    }
+
+    .CreateBlog h2 {
+        font-size: 26px;
+        margin-bottom: 24px;
+    }
+
+    .CreateBlog .form-label {
+        font-size: 14px;
+    }
+
+    .CreateBlog input[type="text"],
+    .CreateBlog input[type="file"],
+    .CreateBlog select,
+    .CreateBlog textarea {
+        padding: 11px 14px;
+        font-size: 14px;
+    }
+
+    .CreateBlog .btn-primary {
+        padding: 12px 28px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .CreateBlog {
+        padding: 20px 0 35px;
+    }
+
+    .CreateBlog .card {
+        padding: 25px 16px;
+    }
+
+    .CreateBlog h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .CreateBlog .mb-3 {
+        margin-bottom: 20px;
+    }
+
+    .CreateBlog input[type="text"],
+    .CreateBlog input[type="file"],
+    .CreateBlog select,
+    .CreateBlog textarea {
+        padding: 10px 12px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+
+    .CreateBlog textarea {
+        min-height: 100px;
+    }
+
+    .CreateBlog .btn-primary {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 430px) {
+    .CreateBlog {
+        padding: 15px 0 30px;
+    }
+
+    .CreateBlog .card {
+        padding: 20px 14px;
+    }
+
+    .CreateBlog h2 {
+        font-size: 22px;
+        margin-bottom: 18px;
+    }
+
+    .CreateBlog .form-label {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .CreateBlog input[type="text"],
+    .CreateBlog input[type="file"],
+    .CreateBlog select,
+    .CreateBlog textarea {
+        padding: 9px 12px;
+        font-size: 13px;
     }
 }

@@ -100,26 +100,56 @@ class Adminpanel extends Component {
       ],
       options: {
         chart: {
-          height: 350,
+          height: 400,
           type: "bar",
+          toolbar: {
+            show: true,
+            tools: {
+              download: true,
+              selection: true,
+              zoom: true,
+              zoomin: true,
+              zoomout: true,
+              pan: true,
+              reset: true,
+            },
+          },
+          background: "transparent",
         },
+        colors: ["#656ED3"],
         plotOptions: {
           bar: {
-            borderRadius: 10,
+            borderRadius: 8,
+            columnWidth: "60%",
             dataLabels: {
-              position: "top", // top, center, bottom
+              position: "top",
             },
           },
         },
         dataLabels: {
           enabled: true,
           formatter: function (val) {
-            return val + "%";
+            return val;
           },
           offsetY: -20,
           style: {
             fontSize: "12px",
-            colors: ["#304758"],
+            fontWeight: 600,
+            colors: ["#1a1a1a"],
+          },
+        },
+        grid: {
+          borderColor: "#f0f0f0",
+          strokeDashArray: 4,
+          xaxis: {
+            lines: {
+              show: false,
+            },
+          },
+          yaxis: {
+            lines: {
+              show: true,
+            },
           },
         },
         xaxis: {
@@ -137,28 +167,39 @@ class Adminpanel extends Component {
             "Nov",
             "Dec",
           ],
-          position: "bottum",
           axisBorder: {
             show: false,
           },
           axisTicks: {
             show: false,
           },
+          labels: {
+            style: {
+              colors: "#666666",
+              fontSize: "12px",
+              fontWeight: 500,
+            },
+          },
         },
         yaxis: {
           labels: {
+            style: {
+              colors: "#666666",
+              fontSize: "12px",
+              fontWeight: 500,
+            },
             formatter: function (val) {
-              return val + "%";
+              return val;
             },
           },
         },
         title: {
-          text: "Monthly Blogs",
-          floating: true,
-          offsetY: 330,
-          align: "center",
+          show: false,
+        },
+        tooltip: {
+          theme: "light",
           style: {
-            color: "#444",
+            fontSize: "12px",
           },
         },
         responsive: [
@@ -215,25 +256,55 @@ class Adminpanel extends Component {
       paymentOptions: {
         chart: {
           type: "area",
-          height: 350,
-        },
-        plotOptions: {
-          bar: {
-            borderRadius: 10,
-            dataLabels: {
-              position: "top",
+          height: 400,
+          toolbar: {
+            show: true,
+            tools: {
+              download: true,
+              selection: true,
+              zoom: true,
+              zoomin: true,
+              zoomout: true,
+              pan: true,
+              reset: true,
             },
+          },
+          background: "transparent",
+        },
+        colors: ["#27ae60"],
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.3,
+            stops: [0, 90, 100],
           },
         },
         dataLabels: {
           enabled: true,
           formatter: function (val) {
-            return "$" + val; // Add $ sign to values
+            return "$" + val;
           },
           offsetY: -20,
           style: {
             fontSize: "12px",
-            colors: ["#304758"],
+            fontWeight: 600,
+            colors: ["#1a1a1a"],
+          },
+        },
+        grid: {
+          borderColor: "#f0f0f0",
+          strokeDashArray: 4,
+          xaxis: {
+            lines: {
+              show: false,
+            },
+          },
+          yaxis: {
+            lines: {
+              show: true,
+            },
           },
         },
         xaxis: {
@@ -251,29 +322,44 @@ class Adminpanel extends Component {
             "Nov",
             "Dec",
           ],
-          position: "bottum",
           axisBorder: {
             show: false,
           },
           axisTicks: {
             show: false,
           },
+          labels: {
+            style: {
+              colors: "#666666",
+              fontSize: "12px",
+              fontWeight: 500,
+            },
+          },
         },
         yaxis: {
           labels: {
+            style: {
+              colors: "#666666",
+              fontSize: "12px",
+              fontWeight: 500,
+            },
             formatter: function (val) {
-              return "$" + val; // Add $ sign to y-axis values
+              return "$" + val;
             },
           },
         },
         title: {
-          text: "Monthly Payments",
-          floating: true,
-          offsetY: 330,
-          align: "center",
+          show: false,
+        },
+        tooltip: {
+          theme: "light",
           style: {
-            color: "#444",
+            fontSize: "12px",
           },
+        },
+        stroke: {
+          curve: "smooth",
+          width: 3,
         },
         responsive: [
           {
@@ -328,71 +414,80 @@ class Adminpanel extends Component {
           <div className="admin_head">
             <AdminHeader />
           </div>
-          <section>
+          <section className="admin-dashboard-section">
             <div className="adminsection">
-              <h2 className="p-3 text-uppercase"> Dashboard</h2>
-              <div className="d-flex gap-3 justify-content-around mb-5 flex-wrap">
-                <div className="paneldata d-flex align-items-center">
-                  <div className="paneldata_icon">
+              <div className="dashboard-header">
+                <h1 className="dashboard-title">Dashboard</h1>
+                <p className="dashboard-subtitle">Welcome back! Here's what's happening with your platform.</p>
+              </div>
+              <div className="dashboard-stats">
+                <div className="stat-card stat-card-users">
+                  <div className="stat-card-icon">
                     <FaUserAlt />
                   </div>
-                  <div>
-                    <p className="mb-0">Total Users</p>
-                    <h4 className="mb-0">{this.state.totalUser}</h4>
+                  <div className="stat-card-content">
+                    <p className="stat-card-label">Total Users</p>
+                    <h3 className="stat-card-value">{this.state.totalUser || 0}</h3>
                   </div>
                 </div>
-                <div className="paneldata d-flex align-items-center">
-                  <div className="paneldata_icon">
+                <div className="stat-card stat-card-blogs">
+                  <div className="stat-card-icon">
                     <BsFillPostcardFill />
                   </div>
-                  <div>
-                    <p className="mb-0">Total Blogs</p>
-                    <h4 className="mb-0">{this.state.totalBlog}</h4>
+                  <div className="stat-card-content">
+                    <p className="stat-card-label">Total Blogs</p>
+                    <h3 className="stat-card-value">{this.state.totalBlog || 0}</h3>
                   </div>
                 </div>
-                <div className="paneldata d-flex align-items-center">
-                  <div className="paneldata_icon">
+                <div className="stat-card stat-card-ads">
+                  <div className="stat-card-icon">
                     <RiAdvertisementFill />
                   </div>
-                  <div>
-                    <p className="mb-0">Total Advertisements</p>
-                    <h4 className="mb-0">{this.state.totalAdvertisement}</h4>
+                  <div className="stat-card-content">
+                    <p className="stat-card-label">Total Advertisements</p>
+                    <h3 className="stat-card-value">{this.state.totalAdvertisement || 0}</h3>
                   </div>
                 </div>
-                <div className="paneldata d-flex align-items-center">
-                  <div className="paneldata_icon">
+                <div className="stat-card stat-card-payments">
+                  <div className="stat-card-icon">
                     <BsFillPostcardFill />
                   </div>
-                  <div>
-                    <p className="mb-0">Total Payments</p>
-                    <h4 className="mb-0">${this.state.Earning}</h4>
+                  <div className="stat-card-content">
+                    <p className="stat-card-label">Total Payments</p>
+                    <h3 className="stat-card-value">${this.state.Earning || 0}</h3>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Blog chart */}
-            <div className="daigram">
-              <h2>Monthly Blogs</h2>
-              <div id="chart">
+            <div className="dashboard-chart">
+              <div className="chart-header">
+                <h2 className="chart-title">Monthly Blogs</h2>
+                <p className="chart-subtitle">Blog creation trends over the past year</p>
+              </div>
+              <div className="chart-container">
                 <ReactApexChart
                   options={this.state.options}
                   series={this.state.series}
                   type="bar"
-                  height={650}
+                  height={400}
                 />
               </div>
             </div>
 
             {/* Payment chart */}
-            <div className="daigram">
-              <h2>Monthly Payments</h2>
-              <div id="chart">
+            <div className="dashboard-chart">
+              <div className="chart-header">
+                <h2 className="chart-title">Monthly Payments</h2>
+                <p className="chart-subtitle">Revenue trends from advertisements</p>
+              </div>
+              <div className="chart-container">
                 <ReactApexChart
                   options={this.state.paymentOptions}
                   series={this.state.paymentSeries}
                   type="area"
-                  height={650}
+                  height={400}
                 />
               </div>
             </div>

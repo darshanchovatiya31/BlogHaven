@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../register/Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseUrl } from "../../Service/Url";
@@ -92,15 +93,18 @@ const Register = () => {
   return (
     <>
       <section className="main_register">
-        <div className="container">
-          <div className="register">
-            <div className="row justify-content-center">
-              <div className="col-xl-6 col-lg-7 col-12 px-2 px-sm-0 d-flex align-items-center justify-content-center">
-                <div className="register_right">
-                  <h5 className="text-center mb-lg-4">
-                    Please Fill out form to Register!
+        <div className="container-fluid">
+          <div className="row overflow-hidden">
+            <div className="col px-0">
+              <div className="register_right">
+                <div className="register_right_inner">
+                  <Link to={"/"}>
+                    <FaArrowLeftLong className="fs-3"/>
+                  </Link>
+                  <h5 className="text-center mb-4">
+                    Create Your Account
                   </h5>
-                  <div className="register_right_inner">
+                  <div>
                     <p className="mb-0">Full name:</p>
                     <input
                       type="text"
@@ -167,17 +171,17 @@ const Register = () => {
                     />
                   </div>
                   <button
-                    className="btn text-white register_btn mt-lg-5 mt-4"
+                    className="btn text-white register_btn mt-4"
                     onClick={handleClick}
-                    disabled={isLoading} // Disable button during loading
+                    disabled={isLoading}
                   >
                     {isLoading ? (
-                      <div className="spinner"></div> // Inline loader
+                      <div className="spinner"></div>
                     ) : (
                       "Register"
                     )}
                   </button>
-                  <p className="inter fw-medium text-center mt-4">
+                  <p className="inter fw-medium text-center">
                     Yes, I have an account?{" "}
                     <Link
                       to={"/login"}

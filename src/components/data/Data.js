@@ -8,23 +8,23 @@ import destinations5 from "../images/destinations5.png"
 export const Destinations = [
   {
     img: destinations1,
-    text: "Dominican Republic",
+    text: "Business Hub",
   },
   {
     img: destinations2,
-    text: "Dominican Republic",
+    text: "Creative Space",
   },
   {
     img: destinations3,
-    text: "Dominican Republic",
+    text: "Tech Innovation",
   },
   {
     img: destinations4,
-    text: "Dominican Republic",
+    text: "Design Studio",
   },
   {
     img: destinations5,
-    text: "Dominican Republic",
+    text: "Startup Zone",
   }
 ];
 

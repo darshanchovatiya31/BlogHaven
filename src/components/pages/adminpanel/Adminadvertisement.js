@@ -91,86 +91,105 @@ const Adminadvertisement = () => {
         <div className="admin_head">
           <AdminHeader />
         </div>
-        <section>
+        <section className="admin-ads-section">
           <div className="adminsection">
-            <h2 className="p-3 text-uppercase">Advertisement</h2>
-            <div className="blog_hero">
-              <div className="blog_hero_top d-flex justify-content-between">
-                <h3>ALL ({ads?.length})</h3>
+            <div className="admin-ads-header">
+              <h1 className="admin-ads-title">Advertisements</h1>
+              <p className="admin-ads-subtitle">Manage all advertisements and their payment status</p>
+            </div>
+            <div className="admin-ads-content">
+              <div className="admin-ads-stats">
+                <div className="ads-count">
+                  <span className="ads-count-label">Total Advertisements</span>
+                  <span className="ads-count-value">{ads?.length || 0}</span>
+                </div>
               </div>
               {ads?.length > 0 ? (
-                ads?.map((ad) => (
-                  <div
-                    key={ad._id}
-                    className="blog_hero_bottum d-sm-flex justify-content-between p-md-4 p-2 mb-4"
-                  >
-                    <div className="blog_hero_detail d-flex align-items-center gap-3">
-                      <div className="admin_blog_hero_img">
-                        <img src={ad.poster} alt="" />
-                      </div>
-                      <div className="blog_hero_text">
-                        <h4>
-                          {ad.title}
-                          <h5 className="fs-5">
-                            Published -{" "}
-                            {new Date(ad.createdAt).toLocaleDateString("en-IN")}
-                          </h5>
-                        </h4>
-                        <div className="d-flex admin_post_userdata">
-                          <img src={ad.userId.profile} alt="" />
-                          <h4 className="mb-0"> {ad.userId.fname}</h4>
+                <div className="admin-ads-list">
+                  {ads.map((ad) => (
+                    <div key={ad._id} className="admin-ad-card">
+                      <div className="admin-ad-info">
+                        <div className="admin-ad-image">
+                          <img src={ad.poster} alt={ad.title} />
+                          <span className={`ad-status-badge status-${ad.status || 'pending'}`}>
+                            {ad.status || 'pending'}
+                          </span>
+                        </div>
+                        <div className="admin-ad-details">
+                          <h3 className="admin-ad-title">{ad.title}</h3>
+                          <div className="admin-ad-meta">
+                            <div className="admin-ad-author">
+                              <img src={ad.userId?.profile} alt={ad.userId?.fname} />
+                              <span>{ad.userId?.fname}</span>
+                            </div>
+                            <span className="admin-ad-date">
+                              Published: {new Date(ad.createdAt).toLocaleDateString("en-IN", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric"
+                              })}
+                            </span>
+                            {ad.lastTime && (
+                              <span className="admin-ad-expiry">
+                                Expires: {new Date(ad.lastTime).toLocaleDateString("en-IN", {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric"
+                                })}
+                              </span>
+                            )}
+                          </div>
+                          <div className="admin-ad-payment-info">
+                            <div className="payment-status">
+                              <GoDotFill className={`payment-dot ${ad.paymentClear ? 'paid' : 'unpaid'}`} />
+                              <span className="payment-label">
+                                {ad.paymentClear ? 'Payment Cleared' : 'Payment Pending'}
+                              </span>
+                            </div>
+                            {ad.price && (
+                              <span className="ad-price">₹{ad.price}</span>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="d-flex align-items-center gap-md-3 gap-2 mt-3 mt-sm-0 justify-content-end">
-                      <h5>
-                        Payment{" "}
-                        <GoDotFill
-                          className={
-                            ad.paymentClear === false
-                              ? "text-danger"
-                              : "text-success"
+                      <div className="admin-ad-actions">
+                        <div className="admin-ad-toggle">
+                          <label className="toggle-switch">
+                            <input
+                              type="checkbox"
+                              checked={ad.paynow === 1}
+                              onChange={() => handleToggle(ad._id)}
+                              disabled={ad.paynow === 1}
+                            />
+                            <span className="toggle-slider"></span>
+                            <span className="toggle-label">
+                              {ad.paynow === 1 ? "Payment Enabled" : "Payment Disabled"}
+                            </span>
+                          </label>
+                        </div>
+                        <button
+                          className={`admin-activate-btn ${ad.status === "active" ? "activated" : ""}`}
+                          onClick={() => handleStatusChange(ad._id)}
+                          disabled={
+                            ad.paymentClear === false || ad.status === "active" || loadingAdId === ad._id
                           }
-                        />
-                      </h5>
-                      <div className="form-check form-switch">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          role="switch"
-                          id={`flexSwitchCheckDefault-${ad._id}`}
-                          checked={ad.paynow === 1}
-                          onChange={() => handleToggle(ad._id)}
-                          disabled={ad.paynow === 1} // Disable if paynow is true
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor={`flexSwitchCheckDefault-${ad._id}`}
                         >
-                          {ad.paynow === 1 ? "On" : "Off"}
-                        </label>
+                          {loadingAdId === ad._id ? (
+                            <div className="action-spinner"></div>
+                          ) : activatedAds.includes(ad._id) || ad.status === "active" ? (
+                            "Activated"
+                          ) : (
+                            "Activate"
+                          )}
+                        </button>
                       </div>
-                      <button
-                        className="py-2 px-4 btn btn-success rounded"
-                        onClick={() => handleStatusChange(ad._id)}
-                        disabled={
-                          ad.paymentClear === false || ad.status === "active"
-                        }
-                      >
-                        {loadingAdId === ad._id ? (
-                          <span className="spinner-border spinner-border-sm"></span>
-                        ) : activatedAds.includes(ad._id) ||
-                          ad.status === "active" ? (
-                          "Activated"
-                        ) : (
-                          "Active"
-                        )}
-                      </button>
                     </div>
-                  </div>
-                ))
+                  ))}
+                </div>
               ) : (
-                <p className="text-center fs-3">No Advertisement Found</p>
+                <div className="admin-ads-empty">
+                  <p>No advertisements found</p>
+                </div>
               )}
             </div>
           </div>

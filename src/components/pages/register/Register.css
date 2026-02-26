@@ -3,112 +3,344 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-blend-mode: overlay;
-    background-color: #00000083;
-    height: 100vh;
+    background-attachment: fixed;
+    background-color: #0a0a0a;
+    min-height: 100vh;
+    position: relative;
+    padding: 20px;
+    overflow-x: hidden;
 }
 
-.register_left img {
-    width: 100%;
-    height: 100%;
+.main_register::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 10, 0.7);
+    z-index: 1;
+    pointer-events: none;
 }
 
 .register_right {
+    min-height: calc(100vh - 40px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
     width: 100%;
-    margin-top: 80px;
-    background-color: white;
-    padding: 16px 48px 0 48px;
-    border-radius: 10px;
+    padding: 40px 0 60px;
+}
+
+.register_right_inner {
+    background-color: #ffffff;
+    padding: 50px 45px;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 2;
+    margin: 0 auto;
+}
+
+.register_right_inner a:first-child {
+    display: inline-flex;
+    align-items: center;
+    color: #1a1a1a;
+    text-decoration: none;
+    margin-bottom: 30px;
+    transition: color 0.3s ease;
+    font-size: 24px;
+}
+
+.register_right_inner a:first-child:hover {
+    color: #656ED3;
+}
+
+.register_right_inner h5 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 35px;
+    letter-spacing: -0.5px;
 }
 
 .register_right_inner p {
-    font-size: 20px;
-    padding: 7px 0 5px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333333;
+    padding: 0 0 8px 0;
+    margin: 0;
 }
 
 .register_right_inner input {
     width: 100%;
-    border: 1px solid #656ED3;
-    background-color: transparent;
-    font-size: 20px;
-    padding: 5px 20px;
-    border-radius: 25px;
+    border: 2px solid #e0e0e0;
+    background-color: #ffffff;
+    font-size: 16px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    color: #1a1a1a;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.register_right_inner input[type="file"] {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.register_right_inner input[type="file"]::file-selector-button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid #d0d0d0;
+    background-color: #f5f5f5;
+    color: #333333;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 12px;
+    transition: all 0.3s ease;
+}
+
+.register_right_inner input[type="file"]::file-selector-button:hover {
+    background-color: #e8e8e8;
+    border-color: #c0c0c0;
+}
+
+.register_right_inner input::placeholder {
+    color: #999999;
+    font-weight: 400;
 }
 
 .register_right_inner input:focus {
     outline: none;
+    border-color: #656ED3;
+    box-shadow: 0 0 0 3px rgba(101, 110, 211, 0.1);
+    background-color: #ffffff;
 }
 
 .register_right_inner .password-input-container {
     position: relative;
+    margin-bottom: 20px;
+}
+
+.register_right_inner .password-input-container input {
+    margin-bottom: 0;
+    padding-right: 45px;
 }
 
 .register_right_inner .password-icon {
     position: absolute;
-    top: 45%;
-    right: 10px;
+    top: 50%;
+    right: 16px;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #555;
+    color: #666666;
+    font-size: 18px;
+    transition: color 0.3s ease;
+    z-index: 3;
 }
 
 .register_right_inner .password-icon:hover {
-    color: #000;
+    color: #656ED3;
 }
 
-.register_right .register_btn {
+.register_right_inner .register_btn {
     background-color: #656ED3;
     width: 100%;
-    border-radius: 25px;
-}
-.loader {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
+    border-radius: 10px;
+    border: 2px solid #656ED3;
+    padding: 14px 32px;
     font-size: 16px;
-  }
-  
-
-@media (max-width: 1399px) {
-    .register_right {
-        margin-top: 10px;
-    }
-}
-@media (max-width: 991px) {
-    
+    font-weight: 700;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(101, 110, 211, 0.3);
+    margin-top: 10px;
 }
 
-@media (max-width: 450px) {
-    .main_register {
-        height: 100%;
-        background-color: white;
-    }
-    .register_right {
-        width: 100%;
-        padding: 10px 5px 0 5px;
-    }
-    .register_right_inner .register_btn {
-        margin-top: 20px !important;
-    }
-    .register_right_inner p {
-        padding-bottom: 0 !important;
-    }
+.register_right_inner .register_btn:hover:not(:disabled) {
+    background-color: #5568c2;
+    border-color: #5568c2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(101, 110, 211, 0.4);
 }
 
+.register_right_inner .register_btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
 
+.register_right_inner .inter {
+    font-size: 15px;
+    color: #666666;
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+
+.register_right_inner .inter a {
+    color: #656ED3;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.register_right_inner .inter a:hover {
+    color: #5568c2;
+    text-decoration: underline;
+}
 .spinner {
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-top-color: #fff;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     display: inline-block;
-  }
+}
 
-  @keyframes spin {
+@keyframes spin {
     to {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-  }
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .register_right_inner {
+        padding: 45px 40px;
+        max-width: 480px;
+    }
+
+    .register_right_inner h5 {
+        font-size: 30px;
+        margin-bottom: 32px;
+    }
+}
+
+@media (max-width: 767px) {
+    .main_register {
+        padding: 15px;
+    }
+
+    .register_right_inner {
+        padding: 40px 35px;
+        max-width: 100%;
+    }
+
+    .register_right_inner h5 {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .register_right_inner input {
+        font-size: 15px;
+        padding: 11px 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .main_register {
+        padding: 12px;
+    }
+
+    .register_right {
+        padding: 25px 0;
+    }
+
+    .register_right_inner {
+        padding: 35px 28px;
+        border-radius: 12px;
+    }
+
+    .register_right_inner h5 {
+        font-size: 26px;
+        margin-bottom: 28px;
+    }
+
+    .register_right_inner p {
+        font-size: 14px;
+    }
+
+    .register_right_inner input {
+        font-size: 15px;
+        padding: 11px 14px;
+        border-radius: 8px;
+    }
+
+    .register_right_inner input[type="file"] {
+        font-size: 13px;
+    }
+
+    .register_right_inner .register_btn {
+        padding: 13px 28px;
+        font-size: 15px;
+        margin-top: 8px;
+    }
+
+    .register_right_inner .inter {
+        font-size: 14px;
+        margin-top: 22px;
+    }
+}
+
+@media (max-width: 430px) {
+    .main_register {
+        padding: 10px;
+    }
+
+    .register_right {
+        padding: 20px 0;
+    }
+
+    .register_right_inner {
+        padding: 30px 22px;
+    }
+
+    .register_right_inner h5 {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+
+    .register_right_inner p {
+        font-size: 13px;
+        padding-bottom: 6px;
+    }
+
+    .register_right_inner input {
+        font-size: 14px;
+        padding: 10px 12px;
+        margin-bottom: 18px;
+    }
+
+    .register_right_inner .password-input-container {
+        margin-bottom: 18px;
+    }
+
+    .register_right_inner .password-icon {
+        right: 12px;
+        font-size: 16px;
+    }
+
+    .register_right_inner input[type="file"] {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .register_right_inner .register_btn {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+
+    .register_right_inner .inter {
+        font-size: 13px;
+        margin-top: 20px;
+    }
+}

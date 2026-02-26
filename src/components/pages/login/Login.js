@@ -107,13 +107,13 @@ const Login = () => {
                   >
                     {isLoading ? <div className="spinner"></div> : "Login"}
                   </button>
-                  <Link
+                  {/* <Link
                     to={"/sendotp"}
                     onClick={() => localStorage.setItem("isotp", true)}
                     className="text-decoration-none mt-2 fs-5 text-black fw-bold d-flex justify-content-center cursor-pointer"
                   >
                     Reset Password
-                  </Link>
+                  </Link> */}
                   <p className="inter fw-medium text-center">
                     Don't have an account?{" "}
                     <Link

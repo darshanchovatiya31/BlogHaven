@@ -139,77 +139,91 @@ const Adminposts = () => {
         <div className="admin_head">
           <AdminHeader />
         </div>
-        <section>
+        <section className="admin-posts-section">
           <div className="adminsection">
-            <h2 className="p-3 text-uppercase"> Posts</h2>
-            <div className="blog_hero">
-              <div className="head_search mx-auto mt-3">
-                <input
-                  type="text"
-                  placeholder="Search Posts"
-                  value={searchQuery}
-                  onChange={handleSearchChange} // Call the search handler on change
-                />
-                <FaSearch className="icon" />
+            <div className="admin-posts-header">
+              <h1 className="admin-posts-title">Posts</h1>
+              <p className="admin-posts-subtitle">Manage all blog posts published on the platform</p>
+            </div>
+            <div className="admin-posts-content">
+              <div className="admin-posts-search">
+                <div className="search-container">
+                  <FaSearch className="search-icon" />
+                  <input
+                    type="text"
+                    placeholder="Search posts by title..."
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    className="search-input"
+                  />
+                </div>
               </div>
-              <div className="blog_hero_top d-flex justify-content-between">
-                <h3>ALL ({blogs?.length})</h3>
+              <div className="admin-posts-stats">
+                <div className="posts-count">
+                  <span className="posts-count-label">Total Posts</span>
+                  <span className="posts-count-value">{blogs?.length || 0}</span>
+                </div>
               </div>
               {isSearching ? (
-                <p className="text-center fs-3">Searching...</p>
+                <div className="admin-posts-loading">
+                  <div className="loading-spinner"></div>
+                  <p>Searching posts...</p>
+                </div>
               ) : blogs?.length > 0 ? (
-                blogs?.map((blog) => (
-                  <div
-                    key={blog._id}
-                    className="blog_hero_bottum d-sm-flex justify-content-between p-md-4 p-2 mb-4"
-                  >
-                    <div className="blog_hero_detail d-flex align-items-center gap-3">
-                      <div className="admin_blog_hero_img">
-                        <img src={blog.blogimg} alt={blog.title} />
-                      </div>
-                      <div className="blog_hero_text">
-                        <h4>
-                          {blog.title}
-                          <span className="fs-5">
-                            {" "}
-                            (Published -{" "}
-                            {new Date(blog.createdAt).toLocaleDateString(
-                              "en-IN"
-                            )}
-                            )
-                          </span>
-                        </h4>
-                        <div className="d-flex admin_post_userdata">
-                          <img src={blog.userId.profile} alt="" />
-                          <h4 className="mb-0"> {blog.userId.fname}</h4>
+                <div className="admin-posts-list">
+                  {blogs.map((blog) => (
+                    <div key={blog._id} className="admin-post-card">
+                      <div className="admin-post-info">
+                        <div className="admin-post-image">
+                          <img src={blog.blogimg} alt={blog.title} />
+                          {blog.category && (
+                            <span className="post-category-badge">{blog.category}</span>
+                          )}
+                        </div>
+                        <div className="admin-post-details">
+                          <h3 className="admin-post-title">{blog.title}</h3>
+                          <div className="admin-post-meta">
+                            <div className="admin-post-author">
+                              <img src={blog.userId?.profile} alt={blog.userId?.fname} />
+                              <span>{blog.userId?.fname}</span>
+                            </div>
+                            <span className="admin-post-date">
+                              Published: {new Date(blog.createdAt).toLocaleDateString("en-IN", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric"
+                              })}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="blog_hero_crud d-flex align-items-center gap-md-3 gap-2 mt-3 mt-sm-0 justify-content-end">
-                      <i>
-                        {loading && loadingId === blog._id ? (
-                          <div className="loader"></div> // Show loader
-                        ) : (
-                          <span onClick={(e) => handledeleteclick(blog._id, e)}>
-                            <MdDelete className="delete" />
-                          </span>
-                        )}
-                      </i>
-                      <i>
+                      <div className="admin-post-actions">
                         <Link
                           to={`/admin/postsingle/${blog._id}`}
-                          className="text-black"
+                          className="admin-view-btn"
                         >
-                          <span>
-                            <BiShow className="view" />
-                          </span>
+                          <BiShow />
+                          <span>View</span>
                         </Link>
-                      </i>
+                        <button
+                          className="admin-delete-btn"
+                          onClick={(e) => handledeleteclick(blog._id, e)}
+                          disabled={loading && loadingId === blog._id}
+                        >
+                          {loading && loadingId === blog._id ? (
+                            <div className="action-spinner"></div>
+                          ) : (
+                            <MdDelete />
+                          )}
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))
+                  ))}
+                </div>
               ) : (
-                <p className="text-center fs-3">No Blogs Found</p>
+                <div className="admin-posts-empty">
+                  <p>No posts found</p>
+                </div>
               )}
             </div>
           </div>

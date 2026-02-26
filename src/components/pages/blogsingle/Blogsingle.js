@@ -6,7 +6,7 @@ import Footer from "../../footer/Footer";
 import "ckeditor5/ckeditor5.css";
 import "ckeditor5-premium-features/ckeditor5-premium-features.css";
 import Blogcard from "../../card/Blogcard";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { BaseUrl } from "../../Service/Url";
 
 const Blogsingle = () => {
@@ -66,21 +66,19 @@ const Blogsingle = () => {
   return (
     <>
       <Header bgcolor="black" btnwhite="white" />
-      <section>
-        <div className="container px-0">
-          <div
-            className="blogsingle_hero text-white p-sm-4 p-2 d-flex justify-content-sm-end justify-content-center flex-column"
-            style={{ backgroundImage: `url(${blog.blogimg})` }}
-          >
-            <div className="blogsingle_hero_text">
-              <h1 className="europa_bold text-uppercase">{blog.title}</h1>
-              <p className="fs-sm-4 fs-5 europa_reg">{blog.maindescription}</p>
-              <div className="d-flex flex-wrap">
-                <p className="me-4">{blog.name}</p>
-                <p className="me-4">
-                  {new Date(blog.createdAt).toLocaleDateString("en-IN")}
-                </p>
-              </div>
+      <section className="blogsingle_hero_section">
+        <div
+          className="blogsingle_hero text-white"
+          style={{ backgroundImage: `url(${blog.blogimg})` }}
+        >
+          <div className="blogsingle_hero_text">
+            <h1 className="europa_bold text-uppercase">{blog.title}</h1>
+            <p className="europa_reg">{blog.maindescription}</p>
+            <div className="d-flex flex-wrap">
+              <p className="me-4">{blog.name}</p>
+              <p className="me-4">
+                {new Date(blog.createdAt).toLocaleDateString("en-IN")}
+              </p>
             </div>
           </div>
         </div>
@@ -88,54 +86,41 @@ const Blogsingle = () => {
       <section>
         <div className="container">
           <div className="abot_blog">
-            <h2>The Journey of Self-Discovery: Finding Your True Path</h2>
-            <p>{blog.adddescription1}</p>
-            <div>
-              <img
-                src={blog.additionalimg}
-                alt=""
-                width={"100%"}
-                height={"100%"}
-              />
+            <div className="blog-category-badge mb-4">
+              {blog.category && (
+                <span className="category-badge">{blog.category}</span>
+              )}
             </div>
-            <p>
-              Sociis consequat adipiscing sit curabitur donec sem luctus cras
-              natoque vulputate dolor eget dapibus. Nec vitae eros ullamcorper
-              laoreet dapibus mus ac ante viverra. A aenean sit augue curabitur
-              et parturient nisi sed enim. Nulla nec quis sit quisque sem
-              commodo ultricies neque. Lorem eget venenatis dui ante luctus
-              ultricies tellus montes. Quis in sapien tempus.
+            <h2 className="europa_bold">{blog.title}</h2>
+            <p className="blog-meta-info europa_reg">
+              <span>{blog.name}</span> • <span>
+                {new Date(blog.createdAt).toLocaleDateString("en-IN", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric"
+                })}
+              </span>
             </p>
-            <h2>Nourishing Your Body and Soul: The Power of Healthy Eating</h2>
-            <p>{blog.adddescription2}</p>
-            <div className="blog_img">
-              <div className="row justify-content-center">
-                {blog?.additionalimg?.map((item) => (
-                  <div className="col-6 col-md-4 mb-4">
-                    <img src={item} alt="" />
+            <p className="europa_reg">{blog.adddescription1}</p>
+            {blog.additionalimg && blog.additionalimg.length > 0 && (
+              <div className="blog_img">
+                {blog.additionalimg.length === 1 ? (
+                  <img
+                    src={blog.additionalimg[0]}
+                    alt={blog.title}
+                  />
+                ) : (
+                  <div className="row justify-content-center">
+                    {blog.additionalimg.map((item, index) => (
+                      <div className="col-6 col-md-4 mb-4" key={index}>
+                        <img src={item} alt={`${blog.title} - Image ${index + 1}`} />
+                      </div>
+                    ))}
                   </div>
-                ))}
+                )}
               </div>
-            </div>
-            <p className="mb-0">
-              Venenatis ante veni nullam ridiculus penatibus vidi eu
-              consectetuer integer. Vulputate ipsum lorem nascetur rhoncus.
-              Aliquam vitae elit blandit enim eget laoreet. Dapibus leo sociis
-              quis nulla adipiscing amet integer sem ullamcorper in maecenas eu
-              imperdiet.
-            </p>
-            <p className="mb-0">
-              Ante blandit amet ultricies ut in nam massa rhoncus. Eget eu massa
-              nisi quis viverra dapibus aliquam. Id ridiculus lorem ut amet dis
-              orci tellus etiam aenean pellentesque.
-            </p>
-            <p>
-              Maecenas tempus aenean nulla viverra neque vel nec cras justo
-              sapien condimentum ut varius. Blandit sem etiam vel nullam
-              vulputate sociis amet varius dolor. Vitae a ut. Etiam rhoncus ante
-              sit. Nisi nullam donec dui eu phasellus a elementum elit faucibus
-              nec. Eros eu pulvinar pede luctus sit aenean lorem.
-            </p>
+            )}
+            <p className="europa_reg">{blog.adddescription2}</p>
           </div>
         </div>
       </section>
@@ -143,26 +128,15 @@ const Blogsingle = () => {
       <section className="subscribe_main">
         <div className="container">
           <div className="subscribe text-white">
-            <h2 className="mb-3">Sign Up for Our Newsletters</h2>
-            <p>Get notified of the best deals on our WordPress themes.</p>
-            <div className="position-relative subscribe_fild">
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                className="form-control py-3 fs-4"
-              />
-              <button className="subscribe_btn position-absolute btn btn-light border fs-5 px-4 py-2">
-                Subscribe
-              </button>
-            </div>
-            <div className="d-flex align-items-center mt-3 gap-3">
-              <input type="checkbox" />
-              <p className="mb-0">
-                By checking this box, you confirm that you have read and are
-                agreeing to our terms of use regarding the storage of the data
-                submitted through this form.
-              </p>
+            <h2 className="mb-3">Join Our Creative Community</h2>
+            <p>Discover inspiring stories, share your thoughts, and connect with like-minded creators from around the world.</p>
+            <div className="d-flex justify-content-center gap-3 flex-wrap mt-4">
+              <Link to="/blog" className="community-btn community-btn-primary">
+                Explore All Blogs
+              </Link>
+              <Link to="/createblog" className="community-btn community-btn-secondary">
+                Start Writing
+              </Link>
             </div>
           </div>
         </div>

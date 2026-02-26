@@ -1,6 +1,5 @@
 import React, { useState, useRef,useEffect } from "react"; // Import useRef
 import "./CreateBlog.css";
-import { Categary } from "../../data/Data";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -21,8 +20,35 @@ const CreateBlog = () => {
   const [blogImg, setBlogImg] = useState(null);
   const [additionalImg, setAdditionalImg] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
   const additionalImgRef = useRef();
   const blogImgRef = useRef();
+
+  // Fetch categories from API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setCategoriesLoading(true);
+      try {
+        const response = await fetch(`${BaseUrl}/user/categories?activeOnly=true`);
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          setCategories(data.data || []);
+        } else {
+          console.error("Error fetching categories:", data.message);
+          toast.error("Failed to load categories");
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        toast.error("Failed to load categories");
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
   
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -227,20 +253,27 @@ const CreateBlog = () => {
               <label htmlFor="category" className="form-label">
                 Category
               </label>
-              <select
-                className="form-select"
-                id="category"
-                name="category"
-                onChange={handleChange}
-                value={blogData.category}
-              >
-                <option value="">Select category</option>
-                {Categary.map((item, index) => (
-                  <option key={index} value={item.name}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
+              {categoriesLoading ? (
+                <div className="form-control">
+                  <p className="mb-0">Loading categories...</p>
+                </div>
+              ) : (
+                <select
+                  className="form-select"
+                  id="category"
+                  name="category"
+                  onChange={handleChange}
+                  value={blogData.category}
+                  required
+                >
+                  <option value="">Select category</option>
+                  {categories.map((category) => (
+                    <option key={category._id} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
 
             <div className="mb-3">

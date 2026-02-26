@@ -81,54 +81,60 @@ const Blogcard = ({ Blogs }) => {
 
   return (
     <>
-      <div className="card border-0 mb-5">
-        <img
-          src={Blogs.blogimg}
-          className="card-img-top rounded-0"
-          alt="post img"
-        />
-        <div className="card-body mt-3 p-0">
-          <h2 className="card-title europa_bold mb-2">{Blogs.title}</h2>
-          <div className="d-flex flex-wrap align-items-center justify-content-between mb-1">
-            <div className="d-flex gap-2 align-items-center">
-              <img
-                src={Blogs.userId.profile}
-                alt=""
-                width="35px"
-                height="35px"
-                className="rounded-circle blogcard_userimg"
-              />
-              <h6 className="mb-0 europa_bold pername">
-                {Blogs.userId.username}
-              </h6>
-            </div>
-            <div className="gap-lg-3 d-flex justify-content-between card_share">
-              <span className="post-date europa_reg me-2">
-                {new Date(Blogs.createdAt).toLocaleDateString("en-IN")}
-              </span>
-            </div>
+      <div className="blog-card-wrapper">
+        <div className="blog-card">
+          <div className="blog-card-image-wrapper">
+            <img
+              src={Blogs.blogimg}
+              className="blog-card-image"
+              alt={Blogs.title}
+            />
+            {Blogs.category && (
+              <span className="blog-card-category">{Blogs.category}</span>
+            )}
           </div>
-          <p className="card-text europa_reg mb-1">{Blogs.maindescription}</p>
-          <div className="d-flex justify-content-between align-items-center">
-            <Link
-              to={`/blogsingle/${Blogs._id}`}
-              className="text-decoration-none europa_bold text-black view_btn"
-            >
-              View Post
-            </Link>
-            <div className="d-flex align-items-center gap-2">
-              <span className="europa_bold likes">{count}</span>
-              <span
-                className="europa_bold "
-                onClick={() => toggleLike(Blogs._id)}
-                style={{ cursor: "pointer" }}
-              >
-                {liked ? (
-                  <FaHeart className="text-danger heart-icon fs-4" />
-                ) : (
-                  <FaRegHeart className="fs-4" />
-                )}
+          <div className="blog-card-content">
+            <h2 className="blog-card-title europa_bold">{Blogs.title}</h2>
+            
+            <div className="blog-card-meta">
+              <div className="blog-card-author">
+                <img
+                  src={Blogs.userId.profile}
+                  alt={Blogs.userId.username}
+                  className="blog-card-avatar"
+                />
+                <span className="blog-card-author-name europa_bold">
+                  {Blogs.userId.username}
+                </span>
+              </div>
+              <span className="blog-card-date europa_reg">
+                {new Date(Blogs.createdAt).toLocaleDateString("en-IN", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric"
+                })}
               </span>
+            </div>
+
+            <p className="blog-card-description europa_reg">
+              {Blogs.maindescription}
+            </p>
+
+            <div className="blog-card-footer">
+              <Link
+                to={`/blogsingle/${Blogs._id}`}
+                className="blog-card-link europa_bold"
+              >
+                Read More
+              </Link>
+              <div className="blog-card-likes" onClick={() => toggleLike(Blogs._id)}>
+                <span className="blog-card-like-count europa_bold">{count}</span>
+                {liked ? (
+                  <FaHeart className="blog-card-heart-icon liked" />
+                ) : (
+                  <FaRegHeart className="blog-card-heart-icon" />
+                )}
+              </div>
             </div>
           </div>
         </div>

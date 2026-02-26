@@ -27,6 +27,7 @@ import Adminpostsingle from "./components/pages/adminpanel/Adminpostsingle";
 import Adminlogin from "./components/pages/adminpanel/Adminlogin";
 import Advertisement from "./components/pages/advertisement/Advertisement";
 import Adminadvertisement from "./components/pages/adminpanel/Adminadvertisement";
+import Admincategories from "./components/pages/adminpanel/Admincategories";
 import Invoice from "./components/pages/advertisement/Invoice";
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path="/adminposts" element={<Adminposts />} />
           <Route path="/adminusers" element={<Adminusers />} />
           <Route path="/adminadvertisement" element={<Adminadvertisement />} />
+          <Route path="/admincategories" element={<Admincategories />} />
           <Route path="/admin/postsingle/:blogId" element={<Adminpostsingle />}/>
         </Route>
         <Route element={<PrivateRouteotp />}>
