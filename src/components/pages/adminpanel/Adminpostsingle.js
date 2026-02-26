@@ -110,7 +110,7 @@ const Adminpostsingle = () => {
                         <div className="admin-post-image-grid">
                           {blog.additionalimg.map((item, index) => (
                             <div key={index} className="admin-post-image-item">
-                              <img src={item} alt={`${blog.title} - Image ${index + 1}`} />
+                              <img src={item} alt={`${blog.title} - ${index + 1}`} />
                             </div>
                           ))}
                         </div>

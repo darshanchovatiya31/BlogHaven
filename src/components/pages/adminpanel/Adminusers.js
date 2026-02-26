@@ -133,7 +133,7 @@ const Adminusers = () => {
         }
       );
       if (response.ok) {
-        const updatedUser = await response.json();
+        await response.json();
         setUsers(
           users.map((user) =>
             user._id === userId ? { ...user, status: newStatus } : user

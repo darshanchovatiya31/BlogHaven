@@ -146,7 +146,7 @@ const Advertisement = () => {
 
   useEffect(() => {
     fetchBlogs();
-  }, [userId, token]);
+  }, [userId, token]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Fetch profile data
   useEffect(() => {
@@ -173,7 +173,7 @@ const Advertisement = () => {
     };
 
     fetchProfileData();
-  }, [token]);
+  }, [token, Navigate]);
 
   // Handle form submission for creating advertisement
   const handleSubmit = async (e) => {
@@ -236,7 +236,7 @@ const Advertisement = () => {
 
   useEffect(() => {
     fetchAdvertisements(activeFilter);
-  }, [activeFilter]);
+  }, [activeFilter]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

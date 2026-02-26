@@ -191,7 +191,7 @@ const Home = () => {
     if (selectedCategory) {
       fetchCategoryBlogs(selectedCategory);
     }
-  }, [selectedCategory]);
+  }, [selectedCategory]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleToggle = () => {
     setShowAll(!showAll);

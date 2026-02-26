@@ -48,7 +48,7 @@ const Blog = () => {
     };
 
     fetchBlogs();
-  }, [userId, token]);
+  }, [userId, token, Navigate]);
 
   // Fetch blogs based on the search query
   const searchBlogs = async (query) => {
@@ -167,7 +167,7 @@ const Blog = () => {
     };
 
     fetchBlogs();
-  }, [token]);
+  }, [token, Navigate]);
 
   return (
     <>

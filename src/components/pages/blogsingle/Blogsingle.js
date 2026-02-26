@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../blogsingle/Blogsingle.css";
 import Header from "../../header/Header";
-import { CiShare2 } from "react-icons/ci";
 import Footer from "../../footer/Footer";
 import "ckeditor5/ckeditor5.css";
 import "ckeditor5-premium-features/ckeditor5-premium-features.css";
@@ -113,7 +112,7 @@ const Blogsingle = () => {
                   <div className="row justify-content-center">
                     {blog.additionalimg.map((item, index) => (
                       <div className="col-6 col-md-4 mb-4" key={index}>
-                        <img src={item} alt={`${blog.title} - Image ${index + 1}`} />
+                        <img src={item} alt={`${blog.title} - ${index + 1}`} />
                       </div>
                     ))}
                   </div>

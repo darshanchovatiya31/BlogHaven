@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "../card/Blogcard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
@@ -64,20 +64,20 @@ const Blogcard = ({ Blogs }) => {
   };
 
   // Check if the user has liked the post when the component mounts
-  const checkUserLikedStatus = async () => {
+  const checkUserLikedStatus = useCallback(async () => {
     const userId = localStorage.getItem("userId");
     if (Blogs.like.includes(userId)) {
       setLiked(true);
     } else {
       setLiked(false);
     }
-  };
+  }, [Blogs.like]);
 
   // Fetch like count and check if the user has liked the Blogs on component mount
   useEffect(() => {
     LikeCount(Blogs._id); // Fetch like count
     checkUserLikedStatus(); // Check if the user has already liked the Blogs
-  }, [Blogs._id]);
+  }, [Blogs._id, Blogs.like, checkUserLikedStatus]);
 
   return (
     <>

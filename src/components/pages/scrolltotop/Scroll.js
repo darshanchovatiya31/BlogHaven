@@ -9,7 +9,7 @@ export const Scroll = ({ children }) => {
             top:0,
             behavior: "smooth",
         });
-    }, [pathname, Scroll])
+    }, [pathname])
 
     return (
         <>

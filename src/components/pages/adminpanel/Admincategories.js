@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import AdminHeader from "./AdminHeader";
 import "../adminpanel/Adminpanel.css";
 import { BaseUrl } from "../../Service/Url";
@@ -12,7 +12,6 @@ const Admincategories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingId, setLoadingId] = useState(null);
-  const [isSearching, setIsSearching] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
@@ -24,7 +23,7 @@ const Admincategories = () => {
 
   const token = localStorage.getItem("admintoken");
 
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch(`${BaseUrl}/admin/categories`, {
@@ -48,18 +47,17 @@ const Admincategories = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [fetchCategories]);
 
   const handleSearch = async (e) => {
     const query = e.target.value;
     setSearchTerm(query);
 
     if (query.length > 0) {
-      setIsSearching(true);
       try {
         const filtered = categories.filter((cat) =>
           cat.name.toLowerCase().includes(query.toLowerCase())
@@ -68,8 +66,6 @@ const Admincategories = () => {
       } catch (error) {
         console.error(error);
         toast.error("Error searching categories");
-      } finally {
-        setIsSearching(false);
       }
     } else {
       fetchCategories();

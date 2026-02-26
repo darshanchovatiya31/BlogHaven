@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Invoice.css"; // Custom styles if you need to add any
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { BaseUrl } from "../../Service/Url";
 
 const Invoice = () => {
     const [invoiceData, setInvoiceData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [hide, sethide] = useState(false)
     const token = localStorage.getItem("token");
 
     const { adId } = useParams();
@@ -36,12 +35,7 @@ const Invoice = () => {
         };
 
         fetchInvoice();
-    }, [adId]);
-
-    const handelhide = () => {
-        window.print()
-        sethide(true)
-    }
+    }, [adId, token]);
 
     if (loading) {
         return <p>Loading...</p>;
