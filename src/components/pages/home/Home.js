@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "../home/Home.css";
 import Header from "../../header/Header";
 import { Destinations } from "../../data/Data";
@@ -163,7 +163,7 @@ const Home = () => {
   }, []);
 
   // Function to fetch blogs based on the selected category
-  const fetchCategoryBlogs = async (category) => {
+  const fetchCategoryBlogs = useCallback(async (category) => {
     if (!category) return;
     
     setCategoryDataLoading(true);
@@ -184,14 +184,14 @@ const Home = () => {
     } finally {
       setCategoryDataLoading(false);
     }
-  };
+  }, []);
 
   // Effect to fetch blogs when a new category is selected
   useEffect(() => {
     if (selectedCategory) {
       fetchCategoryBlogs(selectedCategory);
     }
-  }, [selectedCategory]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [selectedCategory, fetchCategoryBlogs]);
 
   const handleToggle = () => {
     setShowAll(!showAll);
