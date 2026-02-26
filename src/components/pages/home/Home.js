@@ -173,8 +173,19 @@ const Home = () => {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        // Update categoryData based on the selected category
-        setCategoryData(data.data[category] || []);
+        // Check if data.data exists and is an object (category-grouped data)
+        if (data.data && typeof data.data === 'object' && !Array.isArray(data.data)) {
+          // Update categoryData based on the selected category
+          setCategoryData(data.data[category] || []);
+        } else if (Array.isArray(data.data)) {
+          // If data.data is an array, filter by category
+          const filteredBlogs = data.data.filter(blog => blog.category === category);
+          setCategoryData(filteredBlogs);
+        } else {
+          // If data structure is unexpected, set empty array
+          console.warn("Unexpected data structure from API:", data);
+          setCategoryData([]);
+        }
       } else {
         console.error("Error fetching blogs:", data.message);
         setCategoryData([]);
@@ -394,24 +405,24 @@ const Home = () => {
               <div className="text-center mt-5">
                 <p>Loading category blogs...</p>
               </div>
-            ) : categoryData.length > 0 ? (
+            ) : Array.isArray(categoryData) && categoryData.length > 0 && categoryData[0] ? (
               <div className="row justify-content-between gap-3 gap-lg-0">
                 <div className="col-lg-6">
                   <div className="category_left border p-3">
                     <div className="category_left_img">
-                      <img src={categoryData[0].blogimg} alt="" />
+                      <img src={categoryData[0]?.blogimg || ""} alt="" />
                     </div>
                     <p className="mt-4 europa_reg">
-                      {new Date(categoryData[0].createdAt).toLocaleDateString(
+                      {categoryData[0]?.createdAt ? new Date(categoryData[0].createdAt).toLocaleDateString(
                         "en-IN"
-                      )}
+                      ) : ""}
                     </p>
-                    <h4 className="europa_bold">{categoryData[0].title}</h4>
+                    <h4 className="europa_bold">{categoryData[0]?.title || ""}</h4>
                     <p className="mt-3 europa_reg">
-                      {categoryData[0].maindescription}
+                      {categoryData[0]?.maindescription || ""}
                     </p>
                     <Link
-                      to={`/blogsingle/${categoryData[0]._id}`}
+                      to={`/blogsingle/${categoryData[0]?._id || ""}`}
                       className="text-decoration-none europa_bold text-black border-bottom border-black pb-2"
                     >
                       View Post
@@ -421,7 +432,7 @@ const Home = () => {
                 <div className="col-lg-6 col-12">
                   {categoryData.length > 1 ? (
                     <div className="category_right border">
-                      {categoryData.slice(1, 5).map((item) => (
+                      {categoryData.slice(1, 5).filter(item => item).map((item) => (
                         <Link
                           to={`/blogsingle/${item._id}`}
                           className="text-decoration-none text-black"
