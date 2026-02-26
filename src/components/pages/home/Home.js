@@ -160,6 +160,7 @@ const Home = () => {
     };
 
     fetchCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Function to fetch blogs based on the selected category
