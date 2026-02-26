@@ -15,6 +15,7 @@ import Error from "./components/pages/error/Error";
 import Scroll from "./components/pages/scrolltotop/Scroll";
 import Userprofile from "./components/pages/userprofile/Userprofile";
 import Updateprofile from "./components/pages/userupdate/Updateprofile";
+
 import {
   PrivateRoute,
   PrivateRouteadmin,
