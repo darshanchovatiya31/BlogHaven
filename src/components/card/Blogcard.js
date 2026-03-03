@@ -121,12 +121,6 @@ const Blogcard = ({ Blogs }) => {
             </p>
 
             <div className="blog-card-footer">
-              <Link
-                to={`/blogsingle/${Blogs._id}`}
-                className="blog-card-link europa_bold"
-              >
-                Read More
-              </Link>
               <div className="blog-card-likes" onClick={() => toggleLike(Blogs._id)}>
                 <span className="blog-card-like-count europa_bold">{count}</span>
                 {liked ? (
@@ -135,6 +129,12 @@ const Blogcard = ({ Blogs }) => {
                   <FaRegHeart className="blog-card-heart-icon" />
                 )}
               </div>
+              <Link
+                to={`/blogsingle/${Blogs._id}`}
+                className="blog-card-link europa_bold"
+              >
+                Read More
+              </Link>
             </div>
           </div>
         </div>

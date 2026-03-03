@@ -153,7 +153,7 @@ const Blogsingle = () => {
             </div>
             {post.length > 3 && (
               <button
-                className="load-btn europa_bold bg-white"
+                className="load-btn europa_bold rounded-3 bg-white"
                 onClick={handleToggle}
               >
                 {showAll ? "Show Less" : "Load More"}

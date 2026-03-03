@@ -10,6 +10,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { BaseUrl } from "../../Service/Url";
+import BlogCardSkeleton from "../../skeleton/BlogCardSkeleton";
+import CategorySkeleton from "../../skeleton/CategorySkeleton";
 
 const settings = {
   dots: false,
@@ -103,11 +105,13 @@ const Home = () => {
   const [adds, setadds] = useState();
   const [categories, setCategories] = useState([]);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [postsLoading, setPostsLoading] = useState(true);
 
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchBlogs = async () => {
+      setPostsLoading(true);
       try {
         const response = await fetch(`${BaseUrl}/user/homeblogs`, {
           method: "GET",
@@ -124,6 +128,8 @@ const Home = () => {
         setPost(data.data);
       } catch (error) {
         console.error("Error fetching blogs:", error);
+      } finally {
+        setPostsLoading(false);
       }
     };
 
@@ -262,15 +268,25 @@ const Home = () => {
         <div className="container">
           <div className="blogs my-5">
             <div className="row justify-content-center">
-              {post.slice(0, showAll ? post.length : 6).map((item, index) => (
-                <div className="col-xl-4 col-md-6" key={index}>
-                  <Blogcard Blogs={item} />
-                </div>
-              ))}
+              {postsLoading ? (
+                // Show skeleton loaders while loading
+                Array.from({ length: 6 }).map((_, index) => (
+                  <div className="col-xl-4 col-md-6" key={index}>
+                    <BlogCardSkeleton />
+                  </div>
+                ))
+              ) : (
+                // Show actual blog cards
+                post.slice(0, showAll ? post.length : 6).map((item, index) => (
+                  <div className="col-xl-4 col-md-6" key={index}>
+                    <Blogcard Blogs={item} />
+                  </div>
+                ))
+              )}
             </div>
-            {post.length > 6 && (
+            {!postsLoading && post.length > 6 && (
               <button
-                className="load-btn europa_bold bg-white"
+                className="load-btn europa_bold rounded-3 bg-white"
                 onClick={handleToggle}
               >
                 {showAll ? "Show Less" : "Load More"}
@@ -305,17 +321,49 @@ const Home = () => {
 
       <section className="advertisement-section">
         <div className="container">
-          <Slider {...advertisement} className="advertisement-slider mb-3">
-            {adds?.map((ads) => (
-              <div className="slide">
-                <img
-                  className="advertisement-image"
-                  src={ads.poster}
-                  alt="Advertisement"
-                />
-              </div>
-            ))}
-          </Slider>
+          {adds && adds.length > 0 ? (
+            <Slider {...advertisement} className="advertisement-slider mb-3">
+              {adds.map((ads, index) => {
+                // Ensure we have a valid poster URL
+                const imageUrl = ads?.poster;
+                
+                return (
+                  <div className="slide" key={index || ads?._id}>
+                    {imageUrl ? (
+                      <img
+                        className="advertisement-image"
+                        src={imageUrl}
+                        alt={ads?.title || "Advertisement"}
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        onError={(e) => {
+                          console.error("Image failed to load:", imageUrl);
+                          console.error("Error event:", e);
+                          e.target.style.display = "none";
+                          e.target.onerror = null;
+                        }}
+                        onLoad={(e) => {
+                          console.log("Image loaded successfully:", imageUrl);
+                          e.target.style.opacity = "1";
+                        }}
+                        style={{ opacity: 0 }}
+                      />
+                    ) : (
+                      <div className="advertisement-image" style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "#f5f5f5",
+                        color: "#999"
+                      }}>
+                        No Image
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </Slider>
+          ) : null}
           <div className="text-center">
             <Link className="btn btn-primary btn-lg" to={"/advertisement"}>
               Advertise Now
@@ -402,9 +450,7 @@ const Home = () => {
 
             {/* Blog Posts */}
             {categoryDataLoading ? (
-              <div className="text-center mt-5">
-                <p>Loading category blogs...</p>
-              </div>
+              <CategorySkeleton />
             ) : Array.isArray(categoryData) && categoryData.length > 0 && categoryData[0] ? (
               <div className="row justify-content-between gap-3 gap-lg-0">
                 <div className="col-lg-6">
